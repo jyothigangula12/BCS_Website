@@ -17,7 +17,7 @@ const eventsModel = mongoose.model("events")
 app.use(express.static(path.join(__dirname, 'public')))
 
 // send all requests to index.html so browserHistory in React Router works
-app.get('*', function (req, res) {
+app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
@@ -51,7 +51,7 @@ app.post ("/events/addevent", (req, res) => {
 	    price: req.body.price,
 	    organizer: req.body.organizer}, (err, recs) => {
 	    	console.log(err)
-	    	res.json(recs)
+	    	//res.json(recs)
 	})
 		
 })

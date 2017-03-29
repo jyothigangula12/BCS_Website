@@ -13,59 +13,32 @@ import axios from 'axios'
 
 
 class Calendar extends React.Component {
+	constructor() {
+		super()
+		this.state = {events: []}
+	}
+// should send axios.get("/events")
+// should recieve an object with all events from db
 
-	handleSubmit (event) {
-		event.preventDefault()
-		const nameInput = event.target.elements.name
-		const emailInput = event.target.elements.email
-		const messageInput = event.target.elements.message
-		var data = {name: nameInput.value, email: emailInput.value, message: messageInput.value}
-		axios.post('/sendEmail', data)
-			.then((response) => {
-				nameInput.value = ""
-				emailInput.value = ""
-				messageInput.value = ""
-				alert("Your message has been sent, thanks!")
+	componentDidMount() {
+		axios.get("/events", ) 
+			.then ((res) => {
+				console.log("--RES--", res.data)
+				this.setState({events: res.data})
 			})
-		console.log("--SeNd!--")
+
 	}
 
 	render() {
 		return (
 			<div>
-			<h2>Calendar page</h2>
-			<form onSubmit={this.handleSubmit.bind(this)}>
-				<FormGroup controlId="formControlsName">
-				<Col componentClass={ControlLabel} sm={2}>
-				Your name
-				</Col>
-				<Col sm={10}>
-				<FormControl type="text" name="name" placeholder="Your name" />
-				</Col>
-				</FormGroup>
-
-				<FormGroup controlId="formControlsEmail">
-				<Col componentClass={ControlLabel} sm={2}>
-				Email
-				</Col>
-				<Col sm={10}>
-				<FormControl type="email" name="email" placeholder="Your Email" />
-				</Col>
-				</FormGroup>
-
-				<FormGroup controlId="formControlsMessage">
-				<Col componentClass={ControlLabel} sm={2}>
-				<ControlLabel>Your message</ControlLabel>
-				</Col>
-				<Col sm={10}>
-				<FormControl componentClass="textarea" name="message" placeholder="Type your message" />
-				</Col>
-				</FormGroup>
-
-				<Col sm={10}>
-				<Button type="submit">Submit</Button>
-				</Col>
-			</form>
+				<h2>Calendar page</h2>
+				<div>Events list goes here</div>
+				<ul>
+					{this.state.events.map( (event, i) => {
+						return <li key={i}>{event.title}</li>
+					})}
+				</ul>
 			</div>
 		)
 	}

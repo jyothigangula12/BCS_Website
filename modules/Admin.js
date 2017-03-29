@@ -69,7 +69,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event title
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="text" name="title" placeholder="Event title" />
 				</Col>
 				</FormGroup>
@@ -78,7 +78,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event subtitle
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="text" name="subtitle" placeholder="Event subtitle" />
 				</Col>
 				</FormGroup>
@@ -87,7 +87,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event start date
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="date" name="startDate" placeholder="Event start date" />
 				</Col>
 				</FormGroup>
@@ -96,7 +96,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event start time
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="time" name="startTime" placeholder="Event start time" />
 				</Col>
 				</FormGroup>
@@ -105,7 +105,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event end date
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="date" name="endDate" placeholder="Event end date" />
 				</Col>
 				</FormGroup>
@@ -114,7 +114,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event end time
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="time" name="endTime" placeholder="Event end time" />
 				</Col>
 				</FormGroup>
@@ -123,7 +123,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event type (topics)
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="text" name="eventType" placeholder="Event type" />
 				</Col>
 				</FormGroup>
@@ -132,7 +132,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event type2 (duration)
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="text" name="eventType2" placeholder="Event type (duration)" />
 				</Col>
 				</FormGroup>
@@ -141,7 +141,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event image (a link)
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="text" name="eventImage" placeholder="Event image" />
 				</Col>
 				</FormGroup>
@@ -150,7 +150,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				<ControlLabel>Event details</ControlLabel>
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl componentClass="textarea" name="details" placeholder="Event details" />
 				</Col>
 				</FormGroup>
@@ -159,7 +159,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event location
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="text" name="location" placeholder="Event location" />
 				</Col>
 				</FormGroup>
@@ -168,7 +168,7 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event price
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="number" name="price" placeholder="Event price" />
 				</Col>
 				</FormGroup>    
@@ -177,12 +177,12 @@ class Admin extends React.Component {
 				<Col componentClass={ControlLabel} sm={2}>
 				Event organizer
 				</Col>
-				<Col sm={6}>
+				<Col sm={10}>
 				<FormControl type="text" name="organizer" placeholder="Event organizer" />
 				</Col>
 				</FormGroup>             
 
-                <Col sm={6}>
+                <Col sm={10}>
 				<Button type="submit">Submit</Button>
 				</Col>
 			</form>

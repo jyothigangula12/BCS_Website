@@ -66,23 +66,23 @@
 
 	var _Contacts2 = _interopRequireDefault(_Contacts);
 
-	var _Calendar = __webpack_require__(507);
+	var _Calendar = __webpack_require__(503);
 
 	var _Calendar2 = _interopRequireDefault(_Calendar);
 
-	var _Admin = __webpack_require__(503);
+	var _Admin = __webpack_require__(504);
 
 	var _Admin2 = _interopRequireDefault(_Admin);
 
-	var _Repos = __webpack_require__(504);
+	var _Repos = __webpack_require__(505);
 
 	var _Repos2 = _interopRequireDefault(_Repos);
 
-	var _Repo = __webpack_require__(505);
+	var _Repo = __webpack_require__(506);
 
 	var _Repo2 = _interopRequireDefault(_Repo);
 
-	var _Home = __webpack_require__(506);
+	var _Home = __webpack_require__(507);
 
 	var _Home2 = _interopRequireDefault(_Home);
 
@@ -46554,6 +46554,126 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var Calendar = function (_React$Component) {
+		_inherits(Calendar, _React$Component);
+
+		function Calendar() {
+			_classCallCheck(this, Calendar);
+
+			var _this = _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this));
+
+			_this.state = { events: [] };
+			return _this;
+		}
+		// should send axios.get("/events")
+		// should recieve an object with all events from db
+
+		_createClass(Calendar, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var _this2 = this;
+
+				_axios2.default.get("/events").then(function (res) {
+					console.log("--RES--", res.data);
+					_this2.setState({ events: res.data });
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Calendar page'
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						'Events list goes here'
+					),
+					_react2.default.createElement(
+						'ul',
+						null,
+						this.state.events.map(function (event, i) {
+							return _react2.default.createElement(
+								'li',
+								{ key: i },
+								event.title
+							);
+						})
+					)
+				);
+			}
+		}]);
+
+		return Calendar;
+	}(_react2.default.Component);
+
+	exports.default = Calendar;
+
+/***/ },
+/* 504 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrap = __webpack_require__(226);
+
+	var _reactBootstrap2 = _interopRequireDefault(_reactBootstrap);
+
+	var _FormGroup = __webpack_require__(391);
+
+	var _FormGroup2 = _interopRequireDefault(_FormGroup);
+
+	var _ControlLabel = __webpack_require__(344);
+
+	var _ControlLabel2 = _interopRequireDefault(_ControlLabel);
+
+	var _FormControl = __webpack_require__(388);
+
+	var _FormControl2 = _interopRequireDefault(_FormControl);
+
+	var _HelpBlock = __webpack_require__(393);
+
+	var _HelpBlock2 = _interopRequireDefault(_HelpBlock);
+
+	var _Button = __webpack_require__(332);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Col = __webpack_require__(345);
+
+	var _Col2 = _interopRequireDefault(_Col);
+
+	var _LinkContainer = __webpack_require__(477);
+
+	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
+
+	var _axios = __webpack_require__(478);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 	// const FormGroup = ReactBootstrap.FormGroup
 	// const ControlLabel = ReactBootstrap.ControlLabel
 	// const FormControl = ReactBootstrap.FormControl
@@ -46632,7 +46752,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'text', name: 'title', placeholder: 'Event title' })
 							)
 						),
@@ -46646,7 +46766,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'text', name: 'subtitle', placeholder: 'Event subtitle' })
 							)
 						),
@@ -46660,7 +46780,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'date', name: 'startDate', placeholder: 'Event start date' })
 							)
 						),
@@ -46674,7 +46794,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'time', name: 'startTime', placeholder: 'Event start time' })
 							)
 						),
@@ -46688,7 +46808,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'date', name: 'endDate', placeholder: 'Event end date' })
 							)
 						),
@@ -46702,7 +46822,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'time', name: 'endTime', placeholder: 'Event end time' })
 							)
 						),
@@ -46716,7 +46836,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'text', name: 'eventType', placeholder: 'Event type' })
 							)
 						),
@@ -46730,7 +46850,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'text', name: 'eventType2', placeholder: 'Event type (duration)' })
 							)
 						),
@@ -46744,7 +46864,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'text', name: 'eventImage', placeholder: 'Event image' })
 							)
 						),
@@ -46762,7 +46882,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { componentClass: 'textarea', name: 'details', placeholder: 'Event details' })
 							)
 						),
@@ -46776,7 +46896,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'text', name: 'location', placeholder: 'Event location' })
 							)
 						),
@@ -46790,7 +46910,7 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'number', name: 'price', placeholder: 'Event price' })
 							)
 						),
@@ -46804,13 +46924,13 @@
 							),
 							_react2.default.createElement(
 								_Col2.default,
-								{ sm: 6 },
+								{ sm: 10 },
 								_react2.default.createElement(_FormControl2.default, { type: 'text', name: 'organizer', placeholder: 'Event organizer' })
 							)
 						),
 						_react2.default.createElement(
 							_Col2.default,
-							{ sm: 6 },
+							{ sm: 10 },
 							_react2.default.createElement(
 								_Button2.default,
 								{ type: 'submit' },
@@ -46828,7 +46948,7 @@
 	exports.default = Admin;
 
 /***/ },
-/* 504 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46886,7 +47006,7 @@
 	});
 
 /***/ },
-/* 505 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46917,7 +47037,7 @@
 	});
 
 /***/ },
-/* 506 */
+/* 507 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46942,170 +47062,6 @@
 	    );
 	  }
 	});
-
-/***/ },
-/* 507 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactBootstrap = __webpack_require__(226);
-
-	var _reactBootstrap2 = _interopRequireDefault(_reactBootstrap);
-
-	var _FormGroup = __webpack_require__(391);
-
-	var _FormGroup2 = _interopRequireDefault(_FormGroup);
-
-	var _ControlLabel = __webpack_require__(344);
-
-	var _ControlLabel2 = _interopRequireDefault(_ControlLabel);
-
-	var _FormControl = __webpack_require__(388);
-
-	var _FormControl2 = _interopRequireDefault(_FormControl);
-
-	var _HelpBlock = __webpack_require__(393);
-
-	var _HelpBlock2 = _interopRequireDefault(_HelpBlock);
-
-	var _Button = __webpack_require__(332);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Col = __webpack_require__(345);
-
-	var _Col2 = _interopRequireDefault(_Col);
-
-	var _LinkContainer = __webpack_require__(477);
-
-	var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
-
-	var _axios = __webpack_require__(478);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Calendar = function (_React$Component) {
-		_inherits(Calendar, _React$Component);
-
-		function Calendar() {
-			_classCallCheck(this, Calendar);
-
-			return _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).apply(this, arguments));
-		}
-
-		_createClass(Calendar, [{
-			key: 'handleSubmit',
-			value: function handleSubmit(event) {
-				event.preventDefault();
-				var nameInput = event.target.elements.name;
-				var emailInput = event.target.elements.email;
-				var messageInput = event.target.elements.message;
-				var data = { name: nameInput.value, email: emailInput.value, message: messageInput.value };
-				_axios2.default.post('/sendEmail', data).then(function (response) {
-					nameInput.value = "";
-					emailInput.value = "";
-					messageInput.value = "";
-					alert("Your message has been sent, thanks!");
-				});
-				console.log("--SeNd!--");
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'h2',
-						null,
-						'Calendar page'
-					),
-					_react2.default.createElement(
-						'form',
-						{ onSubmit: this.handleSubmit.bind(this) },
-						_react2.default.createElement(
-							_FormGroup2.default,
-							{ controlId: 'formControlsName' },
-							_react2.default.createElement(
-								_Col2.default,
-								{ componentClass: _ControlLabel2.default, sm: 2 },
-								'Your name'
-							),
-							_react2.default.createElement(
-								_Col2.default,
-								{ sm: 10 },
-								_react2.default.createElement(_FormControl2.default, { type: 'text', name: 'name', placeholder: 'Your name' })
-							)
-						),
-						_react2.default.createElement(
-							_FormGroup2.default,
-							{ controlId: 'formControlsEmail' },
-							_react2.default.createElement(
-								_Col2.default,
-								{ componentClass: _ControlLabel2.default, sm: 2 },
-								'Email'
-							),
-							_react2.default.createElement(
-								_Col2.default,
-								{ sm: 10 },
-								_react2.default.createElement(_FormControl2.default, { type: 'email', name: 'email', placeholder: 'Your Email' })
-							)
-						),
-						_react2.default.createElement(
-							_FormGroup2.default,
-							{ controlId: 'formControlsMessage' },
-							_react2.default.createElement(
-								_Col2.default,
-								{ componentClass: _ControlLabel2.default, sm: 2 },
-								_react2.default.createElement(
-									_ControlLabel2.default,
-									null,
-									'Your message'
-								)
-							),
-							_react2.default.createElement(
-								_Col2.default,
-								{ sm: 10 },
-								_react2.default.createElement(_FormControl2.default, { componentClass: 'textarea', name: 'message', placeholder: 'Type your message' })
-							)
-						),
-						_react2.default.createElement(
-							_Col2.default,
-							{ sm: 10 },
-							_react2.default.createElement(
-								_Button2.default,
-								{ type: 'submit' },
-								'Submit'
-							)
-						)
-					)
-				);
-			}
-		}]);
-
-		return Calendar;
-	}(_react2.default.Component);
-
-	exports.default = Calendar;
 
 /***/ }
 /******/ ]);
