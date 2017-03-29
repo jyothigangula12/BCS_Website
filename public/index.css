@@ -1,3 +1,8 @@
 .active {
   color: green;
 }
+.container-fluid {
+  max-width: 960px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}

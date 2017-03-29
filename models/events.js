@@ -6,10 +6,10 @@ var Schema = mongoose.Schema
 var eventsSchema = new Schema({
     title: {type: String, unique: true, required: true},
     subtitle: {type: String},
-    startDate: {type: Date, required: true},
-    starttime: {type: Date, required: true},
-    endDate: {type: Date, required: true},
-    endTime: {type: Date, required: true},
+    startDate: {type: String, required: true},
+    startTime: {type: String, required: true},
+    endDate: {type: String, required: true},
+    endTime: {type: String, required: true},
     eventType: [String],
     eventType2: [String],
     image: {type: String},
@@ -19,4 +19,4 @@ var eventsSchema = new Schema({
     organizer: {type: String}
 });
 
-var eventsModel = mongoose.model('events', eventsSchema);
+mongoose.model('events', eventsSchema);

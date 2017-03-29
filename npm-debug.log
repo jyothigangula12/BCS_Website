@@ -10,8 +10,8 @@
 6 silly lifecycle tutorial@1.0.0~prestart:prod: no script for prestart:prod, continuing
 7 info lifecycle tutorial@1.0.0~start:prod: tutorial@1.0.0
 8 verbose lifecycle tutorial@1.0.0~start:prod: unsafe-perm in lifecycle true
-9 verbose lifecycle tutorial@1.0.0~start:prod: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/GK/sandbox/Node contact form mailer/node_modules/.bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/GK/sandbox/Node contact form mailer/node_modules/.bin:/Users/GK/sandbox/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-10 verbose lifecycle tutorial@1.0.0~start:prod: CWD: /Users/GK/sandbox/Node contact form mailer
+9 verbose lifecycle tutorial@1.0.0~start:prod: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/GK/sandbox/BCS_website_React/node_modules/.bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/GK/sandbox/BCS_website_React/node_modules/.bin:/Users/GK/sandbox/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+10 verbose lifecycle tutorial@1.0.0~start:prod: CWD: /Users/GK/sandbox/BCS_website_React
 11 silly lifecycle tutorial@1.0.0~start:prod: Args: [ '-c', 'webpack && node server.js' ]
 12 silly lifecycle tutorial@1.0.0~start:prod: Returned: code: 1  signal: null
 13 info lifecycle tutorial@1.0.0~start:prod: Failed to exec start:prod script
@@ -26,8 +26,8 @@
 14 verbose stack     at maybeClose (internal/child_process.js:877:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid tutorial@1.0.0
-16 verbose cwd /Users/GK/sandbox/Node contact form mailer
-17 error Darwin 16.4.0
+16 verbose cwd /Users/GK/sandbox/BCS_website_React
+17 error Darwin 16.5.0
 18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "start:prod"
 19 error node v6.9.4
 20 error npm  v3.10.10

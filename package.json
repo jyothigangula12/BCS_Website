@@ -6,7 +6,9 @@
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:dev": "webpack-dev-server --inline --content-base public --history-api-fallback",
-    "start:prod": "webpack && node server.js"
+    "start:prod": "webpack && node server.js",
+    "webpack": "webpack -w",
+    "express": "nodemon server.js"
   },
   "engines": {
     "node": "6.4.0"
@@ -19,6 +21,7 @@
     "compression": "^1.6.2",
     "express": "^4.15.2",
     "if-env": "^1.0.0",
+    "mongoose": "^4.9.2",
     "nodemailer": "^3.1.8",
     "nodemailer-smtp-transport": "^2.7.2",
     "react": "^0.14.8",

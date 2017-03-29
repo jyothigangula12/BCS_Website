@@ -10,6 +10,7 @@ export default React.createClass({
           <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
           <li><NavLink to="/about">About</NavLink></li>
           <li><NavLink to="/repos">Repos</NavLink></li>
+          <li><NavLink to="/events">Calendar</NavLink></li>          
           <li><NavLink to="/contacts">Contact us</NavLink></li>
           <li><NavLink to="/admin">Admin page</NavLink></li>
         </ul>
