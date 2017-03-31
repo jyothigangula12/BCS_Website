@@ -1,21 +1,30 @@
 import React from 'react'
 import NavLink from './NavLink'
+import PageHeader from 'react-bootstrap/lib/PageHeader'
+import store from '../store/index'
+import addEvent from '../store/actions'
+import {Nav, Navbar, NavItem, NavDropdown, MenuItem} from "react-bootstrap"
 
 export default React.createClass({
   render() {
     return (
       <div>
-        <h1>React Router App</h1>
-        <ul role="nav">
+        <div id="topBar"><a href="tel:+666 13 13 13">Tel: 666 13 13 13</a> | <a href="/contacts">email@email.com</a><span id="socialTopBar">fb | twitter | whatever</span></div>
+          <PageHeader>A new website <small>Built with React, yo!</small></PageHeader>
+        <Nav bsStyle="tabs" >
           <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
-          <li><NavLink to="/about">About</NavLink></li>
-          <li><NavLink to="/repos">Repos</NavLink></li>
-          <li><NavLink to="/events">Calendar</NavLink></li>          
+          <li><NavLink to="/calendar">Calendar</NavLink></li>          
           <li><NavLink to="/contacts">Contact us</NavLink></li>
+          <li><NavLink to="/about">About</NavLink></li>
           <li><NavLink to="/admin">Admin page</NavLink></li>
-        </ul>
+          {/*<li><NavLink to="/repos">Repos</NavLink></li>*/}
+      </Nav>
         {this.props.children}
+       
+
       </div>
     )
   }
 })
+
+

@@ -16,10 +16,7 @@ const eventsModel = mongoose.model("events")
 // serve our static stuff like index.css
 app.use(express.static(path.join(__dirname, 'public')))
 
-// send all requests to index.html so browserHistory in React Router works
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
-})
+
 
 // Events APIs
 // GET /events
@@ -27,7 +24,7 @@ app.get('/', function (req, res) {
 
 
 app.get ("/events", (req, res) => {
-mongoose.model('events').find({}, (err, recs) => {
+	mongoose.model('events').find({}, (err, recs) => {
     	res.json(recs)  
 	})
 })
@@ -37,25 +34,21 @@ mongoose.model('events').find({}, (err, recs) => {
 
 
 app.post ("/events/addevent", (req, res) => {
-	eventsModel.create({title: req.body.title,
-	    subtitle: req.body.subtitle,
-	    startDate: req.body.startDate,
-	    startTime: req.body.startTime,
-	    endDate: req.body.endDate,
-	    endTime: req.body.endTime,
-	    eventType: req.body.eventType,
-	    eventType2: req.body.eventType2,
-	    image: req.body.image,
-	    details: req.body.details,
-	    location: req.body.location,
-	    price: req.body.price,
-	    organizer: req.body.organizer}, (err, recs) => {
+	eventsModel.create(req.body, (err, recs) => {
 	    	console.log(err)
-	    	//res.json(recs)
+	    	res.json(recs)
 	})
 		
 })
 
+
+app.post ("/events/updateevent", (req, res) => {
+	const event = req.body.event
+    eventsModel.update({_id : event._id}, {$set: event } ,(err, recs) => {
+    	console.log("Updated event",recs)
+    	res.json(recs)
+    })	
+})
 // Import pwd form form mailer
 var pwd = require('./modules/p').pwd
 const nodemailer = require('nodemailer');
@@ -66,6 +59,7 @@ const transport = nodemailer.createTransport({
         pass: pwd,
     },
 });
+
 //handle contact form sending
 app.post("/sendEmail", (req, res) => {
 	const mailOptions = {
@@ -84,6 +78,11 @@ app.post("/sendEmail", (req, res) => {
 	    console.log(`Message sent: ${info.response}`);
 	    res.redirect('/contacts')
 	});
+})
+
+// send all requests to index.html so browserHistory in React Router works
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 var PORT = process.env.PORT || 8080
