@@ -31,6 +31,12 @@ const CartData = function (state = [], action) {
     switch (action.type) {
         case 'ADD_EVENT_TO_CART':
             return state.concat(action.data)
+        case 'DELETE_EVENT_FROM_CART':
+            const newState = [...state]
+                   var tempState = newState.filter(function(el){
+                        return (el._id !== action.data.event._id)
+                    }) 
+  
         default:
             return state
     }

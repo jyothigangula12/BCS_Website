@@ -1,6 +1,11 @@
 import React from 'react'
 import ReactBootstrap from 'react-bootstrap'
 import Table from 'react-bootstrap/lib/Table'
+import FormGroup from 'react-bootstrap/lib/FormGroup'
+import FormControl from 'react-bootstrap/lib/FormControl'
+import InputGroup from 'react-bootstrap/lib/InputGroup'
+import Button from 'react-bootstrap/lib/Button'
+
 //import store from '../store/index'
 
 import {connect} from 'react-redux'
@@ -12,6 +17,8 @@ class Cart extends React.Component{
 	constructor(props){
 			super()
 		}
+
+		
   render() {
     return (
     	<div><h1>Cart</h1>
@@ -39,13 +46,32 @@ class Cart extends React.Component{
 			        <td>{event.event.price * event.number.number}</td>
 
 			    </tr>
+
             ))}
-		    </tbody>
-		  </Table>
-          </div>
-		)
+            </tbody>
+			</Table>
+			<div id="cartTotal">
+			<h1>Cart Total</h1>
+			<form>
+			{this.props.cartObj.map( (item) => (
+		    <FormGroup>
+		      <InputGroup>
+		        <InputGroup.Addon>Subtotal</InputGroup.Addon>
+		        <FormControl type="number" value = {item.event.price * item.number.number}/>
+		      </InputGroup>
+  		      <InputGroup>
+		        <InputGroup.Addon>Total (IVA incl.)</InputGroup.Addon>
+		        <FormControl type="number" value = {item.event.price * item.number.number + (item.event.price * item.number.number) * 0.21}/>
+		      </InputGroup>
+		    </FormGroup>
+		    ))}
+		    <Button id="checkoutButton" type = "button">PROCEED TO CHECKOUT</Button>
+		    </form>	
+		    </div>
+        </div>
+		
    
-	  }
+	)}
 }
 
 const mapStateToProps = (state) => ({cartObj: state.CartData}) // getting info from the store

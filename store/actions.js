@@ -63,7 +63,7 @@ const deleteEventAsync = (data, callback) => {
 const addEventToCartAsync = (data, callback) => {
 	return (dispatch) => {
 		dispatch(addEventToCart(data))
-
+		if(callback) callback()
 	}
 }
 

@@ -42,3 +42,13 @@ a {
 #socialTopBar {
   float: right;
 }
+#cartTotal {
+  max-width: 40%;
+  float: right;
+}
+span.input-group-addon {
+    width: 15vw;
+}
+#checkoutButton {
+  width: 100%;
+}
