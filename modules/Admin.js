@@ -19,7 +19,7 @@ import LinkContainer from 'react-router-bootstrap/lib/LinkContainer'
 import axios from 'axios'
 
 import store from '../store/index'
-import {addEvent, addEventAsync,updateEventAsync , deleteEventAsync} from '../store/actions'
+import {addEvent, addEventAsync, updateEventAsync, deleteEventAsync} from '../store/actions'
 
 
 // const FormGroup = ReactBootstrap.FormGroup
@@ -35,6 +35,9 @@ class Admin extends React.Component {
 	}
 // should send axios.get("/events")
 // should recieve an object with all events from db
+	componentWillReceiveProps(){
+		this.setState({visibleEvent: undefined})
+	}
 
 	handleSelectEvent(event){
     	// var eventTitle =  event.target.value
@@ -62,6 +65,7 @@ class Admin extends React.Component {
 			<h1>Admin page</h1>
 			<Accordion>
 			<Panel header="Add new event">
+			<div>
 			<form onSubmit={this.handleSubmit.bind(this)}>
 			<FormGroup controlId="formControlsTitle">
 			Event title
@@ -129,6 +133,7 @@ class Admin extends React.Component {
 			</FormGroup>             
 			<Button type="submit">Submit</Button>
 			</form>
+			</div>
 			</Panel>
 			</Accordion>
 
@@ -149,29 +154,7 @@ class Admin extends React.Component {
 		</FormControl>
 		</FormGroup>
 		</form>
-			<UpdateEventForm visibleEvent = {this.state.visibleEvent} events = {this.props.events} updateEventAsync = {this.props.updateEventAsync}/>	
-		</Panel>
-		</Accordion>
-
-
-		<Accordion>
-			<Panel header="Delete existing event">
-			<form >
-			<FormGroup controlId="formControlsSelect">
-			<ControlLabel>Select event to delete</ControlLabel>
-			<FormControl componentClass="select" placeholder="Select event" onChange= {this.handleSelectEvent.bind(this)} >
-			<option value="select" >Select the event</option>
-			{this.props.events.map( (event, i) => {
-
-				return(
-					<option key={i} value={event.title}>{event.title}</option>
-					)
-			})
-		}
-		</FormControl>
-		</FormGroup>
-		</form>
-			<DeleteEventForm event = {this.state.event} deleteEventAsync = {this.props.deleteEventAsync}/>	
+			<UpdateEventForm visibleEvent = {this.state.visibleEvent} events = {this.props.events} updateEventAsync = {this.props.updateEventAsync} deleteEventAsync = {this.props.deleteEventAsync}/>	
 		</Panel>
 		</Accordion>
 		</div>
@@ -189,6 +172,8 @@ class Admin extends React.Component {
 		componentWillReceiveProps(newProps) {
 			if (newProps.visibleEvent !== undefined) {
 				this.setState({event: newProps.events[newProps.visibleEvent]})
+			} else {
+				this.setState({event: {}})
 			}
 			console.log("new props",newProps)
 		}
@@ -202,9 +187,22 @@ class Admin extends React.Component {
 			console.log(this.state.event)
 		}
 		handleUpdate(event){
-			 event.preventDefault()
-			 this.props.updateEventAsync(this.state, ()=>{console.log('event updated!!!!')})
+				
+			event.preventDefault()
+			this.props.updateEventAsync(this.state, ()=>{console.log('event updated!!!!')})
 		}
+
+		handleRemove(event){
+			var str = new String("Are you sure?");
+            alert(str);
+			event.preventDefault()
+			console.log("Hey am in handleDelete", this.state)
+			this.props.deleteEventAsync(this.state, ()=>{
+				console.log('event deleted!!!!')
+			
+			})			
+		}
+
 
 		render(){
 			return(
@@ -252,7 +250,7 @@ class Admin extends React.Component {
 
 				<FormGroup controlId="formControlsEventimage">
 				Event image (a link)
-				<FormControl type="text" name="eventImage" placeholder="Event image" onChange = {this.handleChange.bind(this)} value={this.state.event.image || ""}/>
+				<FormControl type="text" name="eventImage" placeholder="Event image" onChange = {this.handleChange.bind(this)} value={this.state.event.eventImage || ""}/>
 				</FormGroup>
 
 				<FormGroup controlId="formControlsDetails">
@@ -275,46 +273,14 @@ class Admin extends React.Component {
 				<FormControl type="text" name="organizer" placeholder="Event organizer" onChange = {this.handleChange.bind(this)} value={this.state.event.organizer || ""}/>
 				</FormGroup>             
 				<Button type="submit">Save changes</Button>
+				<Button type="button" onClick={this.handleRemove.bind(this)}>Delete event</Button>
+
+				
 				</form>
 				)}
 		}
 
 
-
-
-class DeleteEventForm extends React.Component{
-		constructor(props){
-			super()
-			this.state = {event: props.event}
-			alertVisible: true
-		}
-
-		componentWillReceiveProps(newProps) {
-			this.setState({event: newProps.event})
-			console.log("new props from deleteComp",newProps)
-		}
-
-		
-		handleDelte(event){
-			console.log("Hey am in handleDelete",this.state)
-			 this.props.deleteEventAsync(this.state, ()=>{console.log('event deleted!!!!')})
-			event.preventDefault()
-		}
-
-		
-		render(){
-			return(
-                       <Alert bsStyle="danger">
-				          <h4>Oh snap! You gonna delete!</h4>
-				          <p>
-				            <Button bsStyle="danger" onClick={this.handleDelte}>Are you sure!!</Button>
-				          </p>
-				        </Alert>
-				
-				)
-	    }		
-	}
-
 const mapStateToProps = (state) => ({events: state.EventData})
-const mapDispatchToProps = (dispatch) => bindActionCreators({addEventAsync, updateEventAsync ,deleteEventAsync}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({addEventAsync, updateEventAsync, deleteEventAsync}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Admin)

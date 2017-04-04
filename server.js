@@ -49,6 +49,19 @@ app.post ("/events/updateevent", (req, res) => {
     	res.json(recs)
     })	
 })
+
+// remove event
+app.post ("/events/deleteevent", (req, res) => {
+	const event = req.body.event
+    eventsModel.remove({_id : event._id}, (err, recs) => {
+    	console.log("Deleted event", recs)
+    	res.json(recs)
+    })	
+})
+
+
+
+
 // Import pwd form form mailer
 var pwd = require('./modules/p').pwd
 const nodemailer = require('nodemailer');

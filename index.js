@@ -11,6 +11,7 @@ import Admin from './modules/Admin'
 import Repos from './modules/Repos'
 import Repo from './modules/Repo'
 import Home from './modules/Home'
+import Cart from './modules/Cart'
 
 render((
   <Provider store = {store}>
@@ -21,6 +22,7 @@ render((
           <Route path="/repos/:userName/:repoName" component={Repo}/>
         </Route>
         <Route path="/calendar" component={Calendar}/>
+        <Route path="/cart" component={Cart}/>
     	  <Route path="/contacts" component={Contacts}/>
         <Route path="/admin" component={Admin}/>
         <Route path="/about" component={About}/>

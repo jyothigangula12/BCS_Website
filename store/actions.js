@@ -5,6 +5,7 @@ import axios from 'axios'
 const addEvent = (data) => { return {type: "ADD_EVENT", data}}
 const updateEvent = (data) => {return {type : "UPDATE_EVENT", data}}
 const deleteEvent = (data) => {return {type : "DELETE_EVENT",data}}
+const addEventToCart = (data) => {return {type: "ADD_EVENT_TO_CART", data}}
 
 const addEventAsync = (event , callback) => {
 	return (dispatch) => {
@@ -44,22 +45,26 @@ const fetchEventsAsync = (callback) => {
 			})
 	}
 }
-//const deletePersonName = (personId) => { return {type: "DELETE_PERSON", personId}}
-
 
 const deleteEventAsync = (data, callback) => {
 		return (dispatch) => {
-		axios.post('/events/deleteevent', data)
-		  .then(function (response) {
-		    dispatch(deleteEvent(data))
-		    if(callback) callback()
-		  })
-		  .catch(function (error) {
-		    console.log(error);
-		  });
+			axios.post('/events/deleteevent', data)
+			  .then(function (response) {
+			    dispatch(deleteEvent(data))
+			    if(callback) callback()
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
 	}
 
 }
 
-//export {addPersonName, fetchPeopleAsync, addManyPeople,addPersonNameAsync,deletePersonAsync}
-export {addEventAsync , updateEventAsync, fetchEventsAsync ,deleteEventAsync}
+const addEventToCartAsync = (data, callback) => {
+	return (dispatch) => {
+		dispatch(addEventToCart(data))
+
+	}
+}
+
+export {addEventAsync , updateEventAsync, fetchEventsAsync ,deleteEventAsync, addEventToCartAsync}

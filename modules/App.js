@@ -2,14 +2,22 @@ import React from 'react'
 import NavLink from './NavLink'
 import PageHeader from 'react-bootstrap/lib/PageHeader'
 import store from '../store/index'
-import addEvent from '../store/actions'
-import {Nav, Navbar, NavItem, NavDropdown, MenuItem} from "react-bootstrap"
+//import addEvent from '../store/actions'
+import {Nav, Navbar, NavItem, NavDropdown, MenuItem,Button,Glyphicon} from "react-bootstrap"
 
 export default React.createClass({
   render() {
     return (
       <div>
-        <div id="topBar"><a href="tel:+666 13 13 13">Tel: 666 13 13 13</a> | <a href="/contacts">email@email.com</a><span id="socialTopBar">fb | twitter | whatever</span></div>
+        <div id="topBar">
+        <a href="tel:+666 13 13 13">Tel: 666 13 13 13</a> | <NavLink to="/contacts"> email@email.com</NavLink>
+        <span id="socialTopBar">fb | twitter | whatever |<span> </span> 
+        <NavLink to="/cart">
+          <Glyphicon glyph="glyphicon glyphicon-shopping-cart" />
+        </NavLink>
+        {" "}
+        </span>
+        </div>
           <PageHeader>A new website <small>Built with React, yo!</small></PageHeader>
         <Nav bsStyle="tabs" >
           <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
