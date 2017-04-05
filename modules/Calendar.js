@@ -16,7 +16,7 @@ import Col from 'react-bootstrap/lib/Col'
 import LinkContainer from 'react-router-bootstrap/lib/LinkContainer'
 import NavLink from './NavLink'
 
-import {addEventToCartAsync} from '../store/actions'
+import {addEventToCartAsync , addTotalToCheckOutAsync} from '../store/actions'
 
 import axios from 'axios'
 
@@ -25,6 +25,7 @@ class Calendar extends React.Component {
 		constructor(props){
 			super()
 			this.state = {cart: {}, open :false}
+		
 		}
 handleChangeStudentsNumber(event){
 			const updatedStudentsNumber = Object.assign(
@@ -47,6 +48,21 @@ handleAddToCart(event){
 			console.log('event added to cart!!!!')
 		})
 }
+
+handleCheckOut(event){
+    	var data = {}
+		debugger
+		var pricetotal = event.price
+		var no = this.state.number
+        var Amount = pricetotal * no.number + (pricetotal * no.number) * 0.21
+	    var subTotal = pricetotal * no.number
+	    console.log(pricetotal * no.number)
+	    
+	    data.Total = Amount
+	    data.subTotal = subTotal
+	    console.log("++++++++Total++++++++", Amount, "++++++Subtotal+++++++", subTotal)
+    	this.props.addTotalToCheckOutAsync(data, ()=>{console.log('checkout total added!!!!')})
+    }
 
 	render() {
 		return (
@@ -72,7 +88,7 @@ handleAddToCart(event){
 									<p/>
 									<Panel collapsible expanded={this.state.open}>
 									<p>The event has been added to cart.</p>
-									<Button>Checkout</Button>
+									<NavLink to="/checkout"><Button onClick = {this.handleCheckOut.bind(this,event)}>Checkout</Button></NavLink>
 									<NavLink to="/cart"><Button>View cart</Button></NavLink>
 									</Panel>
 									</div>
@@ -86,7 +102,7 @@ handleAddToCart(event){
 	}
 }
 
-const mapStateToProps = (state) => ({events: state.EventData}) // getting info from the store
-const mapDispatchToProps = (dispatch) => bindActionCreators({addEventToCartAsync}, dispatch) // sending info to the store
+const mapStateToProps = (state) => ({events: state.EventData ,cartObj: state.CartData}) // getting info from the store
+const mapDispatchToProps = (dispatch) => bindActionCreators({addEventToCartAsync , addTotalToCheckOutAsync}, dispatch) // sending info to the store
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar) // we connect both things from above
     

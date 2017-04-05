@@ -3,10 +3,10 @@ import {fetchEventsAsync} from './actions'
 import ReactRedux from 'react-redux'
 import thunk from 'redux-thunk'
 
-import {EventData, CartData} from './reducers'
+import {EventData, CartData , CheckOutData} from './reducers'
 
 // Create Store
-const storeReducer = combineReducers({EventData, CartData})
+const storeReducer = combineReducers({EventData, CartData, CheckOutData})
 
 // // Enable React DevTools Chrome plugin
 // const composeEnhancers =

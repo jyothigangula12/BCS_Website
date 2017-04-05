@@ -96,9 +96,9 @@
 
 	var _Cart2 = _interopRequireDefault(_Cart);
 
-	var _CheckOut = __webpack_require__(549);
+	var _Checkout = __webpack_require__(549);
 
-	var _CheckOut2 = _interopRequireDefault(_CheckOut);
+	var _Checkout2 = _interopRequireDefault(_Checkout);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -119,7 +119,7 @@
 	      ),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/calendar', component: _Calendar2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _Cart2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/checkOut', component: _CheckOut2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/checkout', component: _Checkout2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _Contacts2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _Admin2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/about', component: _About2.default })
@@ -27642,7 +27642,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// Create Store
-	var storeReducer = (0, _redux.combineReducers)({ EventData: _reducers.EventData, CartData: _reducers.CartData });
+	var storeReducer = (0, _redux.combineReducers)({ EventData: _reducers.EventData, CartData: _reducers.CartData, CheckOutData: _reducers.CheckOutData });
 
 	// // Enable React DevTools Chrome plugin
 	// const composeEnhancers =
@@ -27675,7 +27675,7 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.addEventToCartAsync = exports.deleteEventAsync = exports.fetchEventsAsync = exports.updateEventAsync = exports.addEventAsync = undefined;
+	exports.addTotalToCheckOutAsync = exports.addEventToCartAsync = exports.deleteEventAsync = exports.fetchEventsAsync = exports.updateEventAsync = exports.addEventAsync = undefined;
 
 	var _axios = __webpack_require__(260);
 
@@ -27696,6 +27696,9 @@
 	};
 	var addEventToCart = function addEventToCart(data) {
 		return { type: "ADD_EVENT_TO_CART", data: data };
+	};
+	var addToCheckOut = function addToCheckOut(data) {
+		return { type: "ADD_TOTAL_TO_CHECKOUT", data: data };
 	};
 
 	var addEventAsync = function addEventAsync(event, callback) {
@@ -27771,11 +27774,19 @@
 		};
 	};
 
+	var addTotalToCheckOutAsync = function addTotalToCheckOutAsync(data, callback) {
+		return function (dispatch) {
+			dispatch(addToCheckOut(data));
+			if (callback) callback();
+		};
+	};
+
 	exports.addEventAsync = addEventAsync;
 	exports.updateEventAsync = updateEventAsync;
 	exports.fetchEventsAsync = fetchEventsAsync;
 	exports.deleteEventAsync = deleteEventAsync;
 	exports.addEventToCartAsync = addEventToCartAsync;
+	exports.addTotalToCheckOutAsync = addTotalToCheckOutAsync;
 
 /***/ },
 /* 260 */
@@ -29355,8 +29366,22 @@
 	            return state;
 	    }
 	};
+
+	var CheckOutData = function CheckOutData() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case 'ADD_TOTAL_TO_CHECKOUT':
+	            return state.concat(action.data);
+
+	        default:
+	            return state;
+	    }
+	};
 	exports.EventData = EventData;
 	exports.CartData = CartData;
+	exports.CheckOutData = CheckOutData;
 
 /***/ },
 /* 287 */
@@ -29472,6 +29497,15 @@
 	            _NavLink2.default,
 	            { to: '/about' },
 	            'About'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          _react2.default.createElement(
+	            _NavLink2.default,
+	            { to: '/checkout' },
+	            'Checkout'
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -49035,6 +49069,7 @@
 			var _this = _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this));
 
 			_this.state = { cart: {}, open: false };
+
 			return _this;
 		}
 
@@ -49058,6 +49093,24 @@
 				this.props.addEventToCartAsync(data, function () {
 					_this2.setState({ open: !_this2.state.open });
 					console.log('event added to cart!!!!');
+				});
+			}
+		}, {
+			key: 'handleCheckOut',
+			value: function handleCheckOut(event) {
+				var data = {};
+				debugger;
+				var pricetotal = event.price;
+				var no = this.state.number;
+				var Amount = pricetotal * no.number + pricetotal * no.number * 0.21;
+				var subTotal = pricetotal * no.number;
+				console.log(pricetotal * no.number);
+
+				data.Total = Amount;
+				data.subTotal = subTotal;
+				console.log("++++++++Total++++++++", Amount, "++++++Subtotal+++++++", subTotal);
+				this.props.addTotalToCheckOutAsync(data, function () {
+					console.log('checkout total added!!!!');
 				});
 			}
 		}, {
@@ -49221,9 +49274,13 @@
 											'The event has been added to cart.'
 										),
 										_react2.default.createElement(
-											_Button2.default,
-											null,
-											'Checkout'
+											_NavLink2.default,
+											{ to: '/checkout' },
+											_react2.default.createElement(
+												_Button2.default,
+												{ onClick: _this3.handleCheckOut.bind(_this3, event) },
+												'Checkout'
+											)
 										),
 										_react2.default.createElement(
 											_NavLink2.default,
@@ -49247,10 +49304,10 @@
 	}(_react2.default.Component);
 
 	var mapStateToProps = function mapStateToProps(state) {
-		return { events: state.EventData };
+		return { events: state.EventData, cartObj: state.CartData };
 	}; // getting info from the store
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-		return (0, _redux.bindActionCreators)({ addEventToCartAsync: _actions.addEventToCartAsync }, dispatch);
+		return (0, _redux.bindActionCreators)({ addEventToCartAsync: _actions.addEventToCartAsync, addTotalToCheckOutAsync: _actions.addTotalToCheckOutAsync }, dispatch);
 	}; // sending info to the store
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Calendar); // we connect both things from above
 
@@ -49890,9 +49947,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
+	var _NavLink = __webpack_require__(288);
+
+	var _NavLink2 = _interopRequireDefault(_NavLink);
+
 	var _reactRedux = __webpack_require__(222);
 
 	var _redux = __webpack_require__(231);
+
+	var _actions = __webpack_require__(259);
 
 	var _axios = __webpack_require__(260);
 
@@ -49905,7 +49968,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 	//import store from '../store/index'
 
 	var Cart = function (_React$Component) {
@@ -49914,17 +49976,59 @@
 		function Cart(props) {
 			_classCallCheck(this, Cart);
 
-			return _possibleConstructorReturn(this, (Cart.__proto__ || Object.getPrototypeOf(Cart)).call(this));
+			var _this = _possibleConstructorReturn(this, (Cart.__proto__ || Object.getPrototypeOf(Cart)).call(this));
+
+			_this.Amount = 0;
+			_this.subTotal = 0;
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError = undefined;
+
+			try {
+				for (var _iterator = props.cartObj[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var item = _step.value;
+
+					_this.Amount = _this.Amount + item.event.price * item.number.number + item.event.price * item.number.number * 0.21;
+					_this.subTotal = _this.subTotal + item.event.price * item.number.number;
+					console.log("++++++++Total++++++++", _this.Amount, "++++++Subtotal+++++++", _this.subTotal);
+				}
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion && _iterator.return) {
+						_iterator.return();
+					}
+				} finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
+				}
+			}
+
+			return _this;
 		}
 
 		_createClass(Cart, [{
+			key: 'handleCheckOut',
+			value: function handleCheckOut(event) {
+				var data = {};
+				data.Total = this.Amount;
+				data.subTotal = this.subTotal;
+				this.props.addTotalToCheckOutAsync(data, function () {
+					console.log('checkout total added!!!!');
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(
-						'h1',
+						'h2',
 						null,
 						'Cart'
 					),
@@ -49937,11 +50041,7 @@
 							_react2.default.createElement(
 								'tr',
 								null,
-								_react2.default.createElement(
-									'th',
-									null,
-									'X'
-								),
+								_react2.default.createElement('th', null),
 								_react2.default.createElement(
 									'th',
 									null,
@@ -49979,7 +50079,7 @@
 									_react2.default.createElement(
 										'td',
 										null,
-										'Remove button'
+										_react2.default.createElement('i', { className: 'fa fa-trash-o', 'aria-hidden': 'true' })
 									),
 									_react2.default.createElement(
 										'td',
@@ -50014,43 +50114,50 @@
 						'div',
 						{ id: 'cartTotal' },
 						_react2.default.createElement(
-							'h1',
+							'h2',
 							null,
 							'Cart Total'
 						),
 						_react2.default.createElement(
 							'form',
 							null,
-							this.props.cartObj.map(function (item) {
-								return _react2.default.createElement(
-									_FormGroup2.default,
+							_react2.default.createElement(
+								_FormGroup2.default,
+								null,
+								_react2.default.createElement(
+									_InputGroup2.default,
 									null,
 									_react2.default.createElement(
-										_InputGroup2.default,
+										_InputGroup2.default.Addon,
 										null,
-										_react2.default.createElement(
-											_InputGroup2.default.Addon,
-											null,
-											'Subtotal'
-										),
-										_react2.default.createElement(_FormControl2.default, { type: 'number', value: item.event.price * item.number.number })
+										'Subtotal'
 									),
-									_react2.default.createElement(
-										_InputGroup2.default,
-										null,
-										_react2.default.createElement(
-											_InputGroup2.default.Addon,
-											null,
-											'Total (IVA incl.)'
-										),
-										_react2.default.createElement(_FormControl2.default, { type: 'number', value: item.event.price * item.number.number + item.event.price * item.number.number * 0.21 })
-									)
-								);
-							}),
+									_react2.default.createElement(_FormControl2.default, { type: 'text', value: this.subTotal })
+								)
+							),
 							_react2.default.createElement(
-								_Button2.default,
-								{ id: 'checkoutButton', type: 'button' },
-								'PROCEED TO CHECKOUT'
+								_FormGroup2.default,
+								null,
+								_react2.default.createElement(
+									_InputGroup2.default,
+									null,
+									_react2.default.createElement(
+										_InputGroup2.default.Addon,
+										null,
+										'Total (IVA incl.)'
+									),
+									_react2.default.createElement(_FormControl2.default, { type: 'text', value: this.Amount
+									})
+								)
+							),
+							_react2.default.createElement(
+								_NavLink2.default,
+								{ to: '/checkOut' },
+								_react2.default.createElement(
+									_Button2.default,
+									{ id: 'checkoutButton', type: 'button', onClick: this.handleCheckOut.bind(this) },
+									'PROCEED TO CHECKOUT'
+								)
 							)
 						)
 					)
@@ -50064,8 +50171,10 @@
 	var mapStateToProps = function mapStateToProps(state) {
 		return { cartObj: state.CartData };
 	}; // getting info from the store
-	//const mapDispatchToProps = (dispatch) => bindActionCreators({addEventToCartAsync}, dispatch) // sending info to the store
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Cart); // we connect both things from above
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+		return (0, _redux.bindActionCreators)({ addTotalToCheckOutAsync: _actions.addTotalToCheckOutAsync }, dispatch);
+	}; // sending info to the store
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Cart); // we connect both things from above
 
 /***/ },
 /* 549 */
@@ -50074,7 +50183,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+			value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -50082,6 +50191,12 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrap = __webpack_require__(381);
+
+	var _reactBootstrap2 = _interopRequireDefault(_reactBootstrap);
+
+	var _reactScriptLoader = __webpack_require__(551);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50091,30 +50206,462 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var CheckOut = function (_React$Component) {
-		_inherits(CheckOut, _React$Component);
+	var GeneralInformation = function (_React$Component) {
+			_inherits(GeneralInformation, _React$Component);
 
-		function CheckOut(props) {
-			_classCallCheck(this, CheckOut);
+			function GeneralInformation(props) {
+					_classCallCheck(this, GeneralInformation);
 
-			return _possibleConstructorReturn(this, (CheckOut.__proto__ || Object.getPrototypeOf(CheckOut)).call(this));
-		}
-
-		_createClass(CheckOut, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					'CheckOut'
-				);
+					return _possibleConstructorReturn(this, (GeneralInformation.__proto__ || Object.getPrototypeOf(GeneralInformation)).call(this));
 			}
-		}]);
 
-		return CheckOut;
+			_createClass(GeneralInformation, [{
+					key: 'handleSubmit',
+					value: function handleSubmit(event) {
+							event.preventDefault();
+							var data = {};
+
+							var _iteratorNormalCompletion = true;
+							var _didIteratorError = false;
+							var _iteratorError = undefined;
+
+							try {
+									for (var _iterator = event.target.elements[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+											var input = _step.value;
+
+											var name = input.getAttribute('name');
+											if (name) data[name] = input.value;
+									}
+							} catch (err) {
+									_didIteratorError = true;
+									_iteratorError = err;
+							} finally {
+									try {
+											if (!_iteratorNormalCompletion && _iterator.return) {
+													_iterator.return();
+											}
+									} finally {
+											if (_didIteratorError) {
+													throw _iteratorError;
+											}
+									}
+							}
+					}
+			}, {
+					key: 'render',
+					value: function render() {
+
+							return _react2.default.createElement(
+									'div',
+									null,
+									_react2.default.createElement(
+											'h2',
+											null,
+											'Checkout'
+									),
+									_react2.default.createElement(
+											'form',
+											{ onSubmit: this.handleSubmit.bind(this) },
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'Enter your first name'
+											),
+											_react2.default.createElement(_reactBootstrap.FormControl, {
+													id: 'formControlsText',
+													type: 'text',
+													name: 'First name',
+													placeholder: 'Enter your first name' }),
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'Last name'
+											),
+											_react2.default.createElement(_reactBootstrap.FormControl, {
+													id: 'formControlsText',
+													type: 'text',
+													name: 'Last name',
+													placeholder: 'Enter your last name' }),
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'Your ID'
+											),
+											_react2.default.createElement(_reactBootstrap.FormControl, {
+													id: 'formControlsText',
+													type: 'text',
+													name: 'Your ID',
+													placeholder: 'Enter your ID document number' }),
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'Company name'
+											),
+											_react2.default.createElement(_reactBootstrap.FormControl, {
+													id: 'formControlsEmail',
+													type: 'text',
+													name: 'Company name',
+													placeholder: 'Enter your company name' }),
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'Email address'
+											),
+											_react2.default.createElement(_reactBootstrap.FormControl, {
+													id: 'formControlsEmail',
+													type: 'email',
+													name: 'Email address',
+													placeholder: 'Enter email' }),
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'Your phone number'
+											),
+											_react2.default.createElement(_reactBootstrap.FormControl, {
+													id: 'formControlsText',
+													type: 'text',
+													name: 'Your phone number',
+													placeholder: 'Enter your phone number' }),
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'Country'
+											),
+											_react2.default.createElement(
+													_reactBootstrap.FormGroup,
+													{ controlId: 'formControlsSelect' },
+													_react2.default.createElement(
+															_reactBootstrap.FormControl,
+															{ componentClass: 'select', placeholder: 'select' },
+															_react2.default.createElement(
+																	'option',
+																	{ value: 'select' },
+																	'Select your country'
+															),
+															_react2.default.createElement(
+																	'option',
+																	{ value: 'spain' },
+																	'Spain'
+															),
+															_react2.default.createElement(
+																	'option',
+																	{ value: 'other' },
+																	'Rest of the world'
+															)
+													)
+											),
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'Address'
+											),
+											_react2.default.createElement(_reactBootstrap.FormControl, {
+													id: 'formControlsText',
+													type: 'text',
+													name: 'Address',
+													placeholder: 'Enter your address' }),
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'Post code'
+											),
+											_react2.default.createElement(_reactBootstrap.FormControl, {
+													id: 'formControlsText',
+													type: 'text',
+													name: 'Post code',
+													placeholder: 'Enter your post code' }),
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'City'
+											),
+											_react2.default.createElement(_reactBootstrap.FormControl, {
+													id: 'formControlsText',
+													type: 'text',
+													name: 'City',
+													placeholder: 'Enter your city' }),
+											_react2.default.createElement(
+													_reactBootstrap.ControlLabel,
+													null,
+													'Additional information'
+											),
+											_react2.default.createElement(_reactBootstrap.FormControl, {
+													id: 'formControlsText',
+													type: 'textarea',
+													name: 'Additional information',
+													placeholder: 'If you have any order note please enter them here' }),
+											_react2.default.createElement(
+													_reactBootstrap.Checkbox,
+													{ readOnly: true },
+													'Agree to terms and conditions'
+											)
+									)
+							);
+					}
+			}]);
+
+			return GeneralInformation;
+	}(_react2.default.Component);
+
+	var StripePaymentForm = function (_React$Component2) {
+			_inherits(StripePaymentForm, _React$Component2);
+
+			function StripePaymentForm(props) {
+					_classCallCheck(this, StripePaymentForm);
+
+					var _this2 = _possibleConstructorReturn(this, (StripePaymentForm.__proto__ || Object.getPrototypeOf(StripePaymentForm)).call(this));
+
+					for (var functionality in _reactScriptLoader.ReactScriptLoaderMixin) {
+							_this2[functionality] = _reactScriptLoader.ReactScriptLoaderMixin[functionality];
+					}
+					_this2.state = {
+							stripeLoading: true,
+							stripeLoadingError: false,
+							submitDisabled: false,
+							paymentError: null,
+							paymentComplete: false,
+							token: null
+					};
+					return _this2;
+			}
+
+			_createClass(StripePaymentForm, [{
+					key: 'getScriptURL',
+					value: function getScriptURL() {
+							return 'https://js.stripe.com/v2/';
+					}
+			}, {
+					key: 'onScriptLoaded',
+					value: function onScriptLoaded() {
+							if (!this.getStripeToken) {
+									// Put your publishable key here
+									Stripe.setPublishableKey('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+
+									this.setState({ stripeLoading: false, stripeLoadingError: false });
+							}
+					}
+			}, {
+					key: 'onScriptError',
+					value: function onScriptError() {
+							this.setState({ stripeLoading: false, stripeLoadingError: true });
+					}
+			}, {
+					key: 'onSubmit',
+					value: function onSubmit(event) {
+							var self = this;
+							event.preventDefault();
+							this.setState({ submitDisabled: true, paymentError: null });
+							// send form here
+							Stripe.createToken(event.target, function (status, response) {
+									if (response.error) {
+											self.setState({ paymentError: response.error.message, submitDisabled: false });
+									} else {
+											self.setState({ paymentComplete: true, submitDisabled: false, token: response.id });
+											// make request to your server here!
+									}
+							});
+					}
+			}, {
+					key: 'render',
+					value: function render() {
+							if (this.state.stripeLoading) {
+									return _react2.default.createElement(
+											'div',
+											null,
+											'Loading'
+									);
+							}
+							if (this.state.stripeLoadingError) {
+									return _react2.default.createElement(
+											'div',
+											null,
+											'Error'
+									);
+							} else if (this.state.paymentComplete) {
+									return _react2.default.createElement(
+											'div',
+											null,
+											'Payment Complete!'
+									);
+							} else {
+									return _react2.default.createElement(
+											'form',
+											{ onSubmit: this.onSubmit.bind(this) },
+											_react2.default.createElement(
+													'span',
+													null,
+													this.state.paymentError
+											),
+											_react2.default.createElement('br', null),
+											_react2.default.createElement('input', { type: 'text', 'data-stripe': 'number', placeholder: 'credit card number' }),
+											_react2.default.createElement('br', null),
+											_react2.default.createElement('input', { type: 'text', 'data-stripe': 'exp-month', placeholder: 'expiration month' }),
+											_react2.default.createElement('br', null),
+											_react2.default.createElement('input', { type: 'text', 'data-stripe': 'exp-year', placeholder: 'expiration year' }),
+											_react2.default.createElement('br', null),
+											_react2.default.createElement('input', { type: 'text', 'data-stripe': 'cvc', placeholder: 'cvc' }),
+											_react2.default.createElement('br', null),
+											_react2.default.createElement('input', { disabled: this.state.submitDisabled, type: 'submit', value: 'Purchase' })
+									);
+							}
+					}
+			}]);
+
+			return StripePaymentForm;
+	}(_react2.default.Component);
+
+	;
+
+	var CheckOut = function (_React$Component3) {
+			_inherits(CheckOut, _React$Component3);
+
+			function CheckOut() {
+					_classCallCheck(this, CheckOut);
+
+					return _possibleConstructorReturn(this, (CheckOut.__proto__ || Object.getPrototypeOf(CheckOut)).call(this));
+			}
+
+			_createClass(CheckOut, [{
+					key: 'render',
+					value: function render() {
+							return _react2.default.createElement(
+									'div',
+									null,
+									_react2.default.createElement(GeneralInformation, null),
+									_react2.default.createElement(StripePaymentForm, null)
+							);
+					}
+			}]);
+
+			return CheckOut;
 	}(_react2.default.Component);
 
 	exports.default = CheckOut;
+
+/***/ },
+/* 550 */,
+/* 551 */
+/***/ function(module, exports) {
+
+	
+	// A dictionary mapping script URLs to a dictionary mapping
+	// component key to component for all components that are waiting
+	// for the script to load.
+	var scriptObservers = {};
+
+	// A dictionary mapping script URL to a boolean value indicating if the script
+	// has already been loaded.
+	var loadedScripts = {};
+
+	// A dictionary mapping script URL to a boolean value indicating if the script
+	// has failed to load.
+	var erroredScripts = {};
+
+	// A counter used to generate a unique id for each component that uses
+	// ScriptLoaderMixin.
+	var idCount = 0;
+
+	var ReactScriptLoader = {
+		componentDidMount: function(key, component, scriptURL) {
+			if (typeof component.onScriptLoaded !== 'function') {
+				throw new Error('ScriptLoader: Component class must implement onScriptLoaded()');
+			}
+			if (typeof component.onScriptError !== 'function') {
+				throw new Error('ScriptLoader: Component class must implement onScriptError()');
+			}
+			if (loadedScripts[scriptURL]) {
+				component.onScriptLoaded();
+				return;
+			}
+			if (erroredScripts[scriptURL]) {
+				component.onScriptError();
+				return;
+			}
+
+			// If the script is loading, add the component to the script's observers
+			// and return. Otherwise, initialize the script's observers with the component
+			// and start loading the script.
+			if (scriptObservers[scriptURL]) {
+				scriptObservers[scriptURL][key] = component;
+				return;
+			}
+
+			var observers = {};
+			observers[key] = component;
+			scriptObservers[scriptURL] = observers;
+
+			var script = document.createElement('script');
+			script.src = scriptURL;
+
+			var callObserverFuncAndRemoveObserver = function(func) {
+				var observers = scriptObservers[scriptURL];
+				for (var key in observers) {
+					observer = observers[key];
+					var removeObserver = func(observer);
+					if (removeObserver) {
+						delete scriptObservers[scriptURL][key];
+					}
+				}
+				//delete scriptObservers[scriptURL];
+			}
+			script.onload = function() {
+				loadedScripts[scriptURL] = true;
+				callObserverFuncAndRemoveObserver(function(observer) {
+					if (observer.deferOnScriptLoaded && observer.deferOnScriptLoaded()) {
+						return false;
+					}
+					observer.onScriptLoaded();
+					return true;
+				});
+			};
+			script.onerror = function(event) {
+				erroredScripts[scriptURL] = true;
+				callObserverFuncAndRemoveObserver(function(observer) {
+					observer.onScriptError();
+					return true;
+				});
+			};
+			document.body.appendChild(script);
+		},
+		componentWillUnmount: function(key, scriptURL) {
+			// If the component is waiting for the script to load, remove the
+			// component from the script's observers before unmounting the component.
+			var observers = scriptObservers[scriptURL];
+			if (observers) {
+				delete observers[key];
+			}
+		},
+		triggerOnScriptLoaded: function(scriptURL) {
+			if (!loadedScripts[scriptURL]) {
+				throw new Error('Error: only call this function after the script has in fact loaded.');
+			}
+			var observers = scriptObservers[scriptURL];
+			for (var key in observers) {
+				var observer = observers[key];
+				observer.onScriptLoaded();
+			}
+			delete scriptObservers[scriptURL];
+		}
+	};
+
+	var ReactScriptLoaderMixin = {
+		componentDidMount: function() {
+			if (typeof this.getScriptURL !== 'function') {
+				throw new Error("ScriptLoaderMixin: Component class must implement getScriptURL().")
+			}
+			ReactScriptLoader.componentDidMount(this.__getScriptLoaderID(), this, this.getScriptURL());
+		},
+		componentWillUnmount: function() {
+			ReactScriptLoader.componentWillUnmount(this.__getScriptLoaderID(), this.getScriptURL());
+		},
+		__getScriptLoaderID: function() {
+			return 'id' + idCount++;
+		},
+	};
+
+	exports.ReactScriptLoaderMixin = ReactScriptLoaderMixin;
+	exports.ReactScriptLoader = ReactScriptLoader;
+
 
 /***/ }
 /******/ ]);

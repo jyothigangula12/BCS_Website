@@ -24,6 +24,7 @@ export default React.createClass({
           <li><NavLink to="/calendar">Calendar</NavLink></li>          
           <li><NavLink to="/contacts">Contact us</NavLink></li>
           <li><NavLink to="/about">About</NavLink></li>
+          <li><NavLink to="/checkout">Checkout</NavLink></li>
           <li><NavLink to="/admin">Admin page</NavLink></li>
           {/*<li><NavLink to="/repos">Repos</NavLink></li>*/}
       </Nav>

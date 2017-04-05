@@ -41,5 +41,15 @@ const CartData = function (state = [], action) {
             return state
     }
 }
-export {EventData, CartData}
+
+const CheckOutData = function (state = [], action) {
+    switch (action.type) {
+        case 'ADD_TOTAL_TO_CHECKOUT':
+            return state.concat(action.data)
+        
+        default:
+            return state
+    }
+}
+export {EventData, CartData , CheckOutData}
  

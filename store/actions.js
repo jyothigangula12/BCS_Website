@@ -6,6 +6,7 @@ const addEvent = (data) => { return {type: "ADD_EVENT", data}}
 const updateEvent = (data) => {return {type : "UPDATE_EVENT", data}}
 const deleteEvent = (data) => {return {type : "DELETE_EVENT",data}}
 const addEventToCart = (data) => {return {type: "ADD_EVENT_TO_CART", data}}
+const addToCheckOut = (data) => {return {type : "ADD_TOTAL_TO_CHECKOUT",data}}
 
 const addEventAsync = (event , callback) => {
 	return (dispatch) => {
@@ -67,4 +68,11 @@ const addEventToCartAsync = (data, callback) => {
 	}
 }
 
-export {addEventAsync , updateEventAsync, fetchEventsAsync ,deleteEventAsync, addEventToCartAsync}
+const addTotalToCheckOutAsync = (data, callback) => {
+	return (dispatch) => {
+		dispatch(addToCheckOut(data))
+		if(callback) callback()
+	}
+}
+
+export {addEventAsync , updateEventAsync, fetchEventsAsync ,deleteEventAsync, addEventToCartAsync , addTotalToCheckOutAsync}
