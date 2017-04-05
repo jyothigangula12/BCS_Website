@@ -1,5 +1,5 @@
 {
-  "name": "tutorial",
+  "name": "bcs_react_website",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,7 +13,7 @@
   "engines": {
     "node": "6.4.0"
   },
-  "author": "",
+  "author": "gk and jyothi",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.15.3",
@@ -28,6 +28,7 @@
     "mongoose": "^4.9.2",
     "nodemailer": "^3.1.8",
     "nodemailer-smtp-transport": "^2.7.2",
+    "paypal-express-checkout-simple": "^0.1.2",
     "react": "^0.14.8",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^0.14.8",

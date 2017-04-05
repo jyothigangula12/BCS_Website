@@ -27625,6 +27625,8 @@
 	  value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _redux = __webpack_require__(231);
 
 	var _actions = __webpack_require__(259);
@@ -27644,18 +27646,12 @@
 	// Create Store
 	var storeReducer = (0, _redux.combineReducers)({ EventData: _reducers.EventData, CartData: _reducers.CartData, CheckOutData: _reducers.CheckOutData });
 
-	// // Enable React DevTools Chrome plugin
-	// const composeEnhancers =
-	//   typeof window === 'object' &&
-	//   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
-	//     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-	//       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-	//     }) : compose;
-	// const middleware = [thunk]
-	// const enhancer = composeEnhancers(
-	//   applyMiddleware(...middleware),
-	//   // other store enhancers if any
-	// );
+	// Enable React DevTools Chrome plugin
+	var composeEnhancers = (typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+	  // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+	}) : compose;
+	var middleware = [_reduxThunk2.default];
+	var enhancer = composeEnhancers(_redux.applyMiddleware.apply(undefined, middleware));
 
 	var store = (0, _redux.createStore)(storeReducer, (0, _redux.applyMiddleware)(_reduxThunk2.default));
 	store.dispatch((0, _actions.fetchEventsAsync)());
@@ -50196,7 +50192,7 @@
 
 	var _reactBootstrap2 = _interopRequireDefault(_reactBootstrap);
 
-	var _reactScriptLoader = __webpack_require__(551);
+	var _reactScriptLoader = __webpack_require__(550);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50539,8 +50535,7 @@
 	exports.default = CheckOut;
 
 /***/ },
-/* 550 */,
-/* 551 */
+/* 550 */
 /***/ function(module, exports) {
 
 	
