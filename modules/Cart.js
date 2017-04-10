@@ -19,15 +19,17 @@ import axios from 'axios'
 class Cart extends React.Component{
 	constructor(props){
 		super()
-		
+		this.titlearray=[]
 		this.Amount = 0 
 		this.subTotal = 0
+		this.number = []
+        this.total = []
 		for(let item of props.cartObj){
+		console.log("____props.cartObj+++++",props.cartObj)
         this.Amount = this.Amount + item.event.price * item.number.number + (item.event.price * item.number.number) * 0.21
 	    this.subTotal = this.subTotal + item.event.price * item.number.number
 	    console.log("++++++++Total++++++++", this.Amount, "++++++Subtotal+++++++", this.subTotal)
-	    
-	    }
+        }
 	}
     handleCheckOut(event){
     	var data={}
@@ -37,9 +39,9 @@ class Cart extends React.Component{
     }
 		
   render() {
-  	
     return (
-    	<div><h2>Cart</h2>
+    	<div>
+    	<h2>Cart</h2>
 
 		  <Table responsive>
 		    <thead>
@@ -54,8 +56,10 @@ class Cart extends React.Component{
 		      </tr>
 		    </thead>
 		    <tbody>
-		    {this.props.cartObj.map( (event, i) => (
-			    <tr key={i}>
+		    
+            { 
+		     this.props.cartObj.map( (event, i) => {
+            	return <tr key={i}>
 			        <td><i className="fa fa-trash-o" aria-hidden="true"></i></td>
 			        <td>{event.event.title}</td>
 			        <td>{event.event.price}</td>
@@ -63,11 +67,12 @@ class Cart extends React.Component{
 			        <td>{event.number.number}</td>
 			        <td>{event.event.price * event.number.number}</td>
 
-			    </tr>
-
-            ))}
+			    </tr>})
+		    }
             </tbody>
 			</Table>
+            
+
 			<div id="cartTotal">
 			<h2>Cart Total</h2>
 			<form >
@@ -82,17 +87,17 @@ class Cart extends React.Component{
 		    <FormGroup>
 		    <InputGroup>
 		        <InputGroup.Addon>Total (IVA incl.)</InputGroup.Addon>
-		        <FormControl type="text" value = {this.Amount}
+		        <FormControl type="text" value = {this.Amount.toFixed(2)}
 		         />
 		      </InputGroup>
 		    </FormGroup>
-		    <NavLink to="/checkOut"><Button id="checkoutButton" type = "button" onClick = {this.handleCheckOut.bind(this)}>PROCEED TO CHECKOUT</Button></NavLink>
+		    <NavLink to="/checkout"><Button id="checkoutButton" type = "button" onClick = {this.handleCheckOut.bind(this)}>PROCEED TO CHECKOUT</Button></NavLink>
 		    </form>	
-		    </div>
+</div>
         </div>
 		
-   
-	)}
+   )
+}
 }
 
 const mapStateToProps = (state) => ({cartObj: state.CartData}) // getting info from the store

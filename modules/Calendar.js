@@ -20,13 +20,36 @@ import {addEventToCartAsync , addTotalToCheckOutAsync} from '../store/actions'
 
 import axios from 'axios'
 
+import {
+	ShareButtons,
+	ShareCounts,
+	generateShareIcon
+} from 'react-share'
+const {
+	FacebookShareButton,
+	GooglePlusShareButton,
+	LinkedinShareButton,
+	TwitterShareButton,
+	TelegramShareButton,
+	WhatsappShareButton,
+	PinterestShareButton,
+	VKShareButton,
+	OKShareButton
+} = ShareButtons;
+const TwitterIcon = generateShareIcon('twitter');
+const FacebookIcon = generateShareIcon('facebook');
+const LinkedinIcon = generateShareIcon('linkedin');
+
 
 class Calendar extends React.Component {
 		constructor(props){
 			super()
 			this.state = {cart: {}, open :false}
-		
-		}
+			this.Amount = 0
+            this.subTotal = 0
+
+           
+	    }
 handleChangeStudentsNumber(event){
 			const updatedStudentsNumber = Object.assign(
 				{},
@@ -42,29 +65,35 @@ handleAddToCart(event){
 		var data = {}
 		data.number = this.state.number
 		data.event = event
-	
+	    
 		this.props.addEventToCartAsync(data, ()=>{
 			this.setState({ open: !this.state.open })
 			console.log('event added to cart!!!!')
 		})
+        this.pricetotal = event.price
+		this.no = this.state.number
+        this.Amount = this.Amount + this.pricetotal * this.no.number + (this.pricetotal * this.no.number) * 0.21
+	    this.subTotal = this.subTotal + this.pricetotal * this.no.number
+	    console.log(this.pricetotal * this.no.number)	
+		
 }
 
 handleCheckOut(event){
     	var data = {}
-		debugger
-		var pricetotal = event.price
-		var no = this.state.number
-        var Amount = pricetotal * no.number + (pricetotal * no.number) * 0.21
-	    var subTotal = pricetotal * no.number
-	    console.log(pricetotal * no.number)
-	    
-	    data.Total = Amount
-	    data.subTotal = subTotal
-	    console.log("++++++++Total++++++++", Amount, "++++++Subtotal+++++++", subTotal)
+		
+	    data.Total = this.Amount
+	    data.subTotal = this.subTotal
+	    console.log("++++++++Total++++++++", this.Amount, "++++++Subtotal+++++++", this.subTotal)
     	this.props.addTotalToCheckOutAsync(data, ()=>{console.log('checkout total added!!!!')})
     }
 
 	render() {
+		 // These two lines are to sort date
+			this.props.events.sort(function(a,b) { 
+			    return new Date(a.startDate).getTime() - new Date(b.startDate).getTime() 
+			});
+    const shareUrl = 'http://www.google.com';
+    const title = 'Built with react';
 		return (
 			<div>
 				<h2>Calendar page</h2>
@@ -80,6 +109,32 @@ handleCheckOut(event){
 								<div><strong>Location: </strong><address><strong>BCS</strong><br/>{event.location}<br/><abbr title="Phone">P:</abbr>(34) 666-13-13</address></div>
 								<div><span><strong>Price: </strong></span>{event.price}</div>
 								<div><span><strong>Organizer: </strong></span>{event.organizer}</div>
+									<div className="social_share_container">
+										<TwitterShareButton
+										url={shareUrl}
+										title={title}
+										className="social_share_buttons">
+										<TwitterIcon
+										size={26}
+										round />
+										</TwitterShareButton>
+										<FacebookShareButton
+										url={shareUrl}
+										title={title}
+										className="social_share_buttons">
+										<FacebookIcon
+										size={26}
+										round />
+										</FacebookShareButton>
+										<LinkedinShareButton
+										url={shareUrl}
+										title={title}
+										className="social_share_buttons">
+										<LinkedinIcon
+										size={26}
+										round />
+										</LinkedinShareButton>
+									</div>
 								<input type="number" name="studentsNumber" onChange={this.handleChangeStudentsNumber.bind(this)}></input>
 								{/*<Button type="button" onClick={this.handleAddToCart.bind(this, event)}>Add to cart</Button>*/}
 									<Button type="button" onClick={ this.handleAddToCart.bind(this, event)}>

@@ -4,13 +4,16 @@ var path = require('path')
 var app = express()
 var bodyParser = require('body-parser')
 app.use(compression())
-require("./models/events.js")
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1/db')
 // Initialize models
-const eventsModel = mongoose.model("events")
+require("./models/orders.js")
+const ordersModel = mongoose.model('orders')
+require("./models/events.js")
+const eventsModel = mongoose.model('events')
+
 
 
 // serve our static stuff like index.css
@@ -29,12 +32,44 @@ app.get ("/events", (req, res) => {
 	})
 })
 
+
+// Stripe POST
+app.post ("/pay", (request, res) =>{
+	// create a new order entry in db =>
+	// order saved in db with new orderID
+	// fetch new orderID
+	// send this orderID to stripe together with the amount and token
+
+
+	console.log("--request--", request)
+// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require("stripe")("sk_test_mA0QCmRuBeXyE0S25rY56s71");
+
+// Token is created using Stripe.js or Checkout!
+// Get the payment token submitted by the form:
+var token = request.body.token; // Using Express
+
+// Charge the user's card:
+var charge = stripe.charges.create({
+  amount: Number(request.body.amount),
+  currency: "eur",
+  description: "Order number: " + request.body.orderID,
+  source: token,
+}, function(err, charge) {
+  // asynchronously called
+
+});
+
+})
+
+
+
 // POST /events/
 // display all events
-
-
 app.post ("/events/addevent", (req, res) => {
 	eventsModel.create(req.body, (err, recs) => {
+		console.log("---ADD EVENT RECS---", recs)
 	    	console.log(err)
 	    	res.json(recs)
 	})
@@ -44,7 +79,7 @@ app.post ("/events/addevent", (req, res) => {
 
 app.post ("/events/updateevent", (req, res) => {
 	const event = req.body.event
-    eventsModel.update({_id : event._id}, {$set: event } ,(err, recs) => {
+    eventsModel.findOneAndUpdate({_id : event._id}, {$set: event }, {new: true} ,(err, recs) => {
     	console.log("Updated event",recs)
     	res.json(recs)
     })	
@@ -59,7 +94,19 @@ app.post ("/events/deleteevent", (req, res) => {
     })	
 })
 
-
+app.post ("/events/customer", (req, res) => {
+	const customer = req.body.customer
+	console.log("--- CUSTOMER req---", req.body)
+	console.log("--- CUSTOMER req.body.customer---", req.body.customer)
+	
+    ordersModel.create(customer,(err,rec) => {
+		console.log("---ADD CUSTOMER RECS---", rec)
+	    	console.log(err)
+	    	res.json(rec)
+	})
+		
+	
+})
 
 
 // Import pwd form form mailer

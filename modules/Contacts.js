@@ -73,6 +73,7 @@ class Contacts extends React.Component {
 				<Button type="submit">Submit</Button>
 				</Col>
 			</form>
+
 			</div>
 		)
 	}

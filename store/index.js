@@ -3,10 +3,7 @@ import {fetchEventsAsync} from './actions'
 import ReactRedux from 'react-redux'
 import thunk from 'redux-thunk'
 
-import {EventData, CartData , CheckOutData} from './reducers'
-
-// Create Store
-const storeReducer = combineReducers({EventData, CartData, CheckOutData})
+import {EventData, CartData , CheckOutData ,CustomerData} from './reducers'
 
 
 // Enable React DevTools Chrome plugin
@@ -22,8 +19,12 @@ const enhancer = composeEnhancers(
   // other store enhancers if any
 )
 
-const store = createStore(storeReducer, applyMiddleware(thunk))
+// Create Store
+const storeReducer = combineReducers({EventData, CartData, CheckOutData , CustomerData})
+const store = createStore(storeReducer, enhancer)
 store.dispatch(fetchEventsAsync())
+
+
 
 store.subscribe(() => {console.log(store.getState())})
 

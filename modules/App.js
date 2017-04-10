@@ -24,13 +24,20 @@ export default React.createClass({
           <li><NavLink to="/calendar">Calendar</NavLink></li>          
           <li><NavLink to="/contacts">Contact us</NavLink></li>
           <li><NavLink to="/about">About</NavLink></li>
-          <li><NavLink to="/checkout">Checkout</NavLink></li>
+          {/*<li><NavLink to="/checkout">Checkout</NavLink></li>*/}
           <li><NavLink to="/admin">Admin page</NavLink></li>
           {/*<li><NavLink to="/repos">Repos</NavLink></li>*/}
       </Nav>
         {this.props.children}
        
-
+        <div className="pure-menu pure-menu-horizontal">
+          <a href="#" className="pure-menu-heading pure-menu-link">BRAND</a>
+          <ul className="pure-menu-list">
+          <li className="pure-menu-item"><a href="#" className="pure-menu-link">News</a></li>
+          <li className="pure-menu-item"><a href="#" className="pure-menu-link">Sports</a></li>
+          <li className="pure-menu-item"><a href="#" className="pure-menu-link">Finance</a></li>
+          </ul>
+        </div>
       </div>
     )
   }

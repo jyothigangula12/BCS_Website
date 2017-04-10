@@ -7,6 +7,20 @@ const updateEvent = (data) => {return {type : "UPDATE_EVENT", data}}
 const deleteEvent = (data) => {return {type : "DELETE_EVENT",data}}
 const addEventToCart = (data) => {return {type: "ADD_EVENT_TO_CART", data}}
 const addToCheckOut = (data) => {return {type : "ADD_TOTAL_TO_CHECKOUT",data}}
+const addCustomerInfo = (data) => {return {type: "ADD_CUSTOMER_INFO", data}}
+
+
+const stripePaySync = (event , callback) => {
+	return (dispatch) => {
+		axios.post('/pay', event)
+		  .then(function (response) {
+		    if (callback) callback()
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+	}
+}
 
 const addEventAsync = (event , callback) => {
 	return (dispatch) => {
@@ -26,7 +40,7 @@ const updateEventAsync = (data , callback) => {
 	return (dispatch) => {
 		axios.post('/events/updateevent', data)
 		  .then(function (response) {
-		    dispatch(updateEvent(data))
+		    dispatch(updateEvent(response.data))
 		    if (callback) callback()
 		  })
 		  .catch(function (error) {
@@ -51,7 +65,7 @@ const deleteEventAsync = (data, callback) => {
 		return (dispatch) => {
 			axios.post('/events/deleteevent', data)
 			  .then(function (response) {
-			    dispatch(deleteEvent(data))
+			    dispatch(deleteEvent(response.data))
 			    if(callback) callback()
 			  })
 			  .catch(function (error) {
@@ -75,4 +89,19 @@ const addTotalToCheckOutAsync = (data, callback) => {
 	}
 }
 
-export {addEventAsync , updateEventAsync, fetchEventsAsync ,deleteEventAsync, addEventToCartAsync , addTotalToCheckOutAsync}
+const addCustomerDataAsync = (data, callback) => {
+
+	return (dispatch) => {
+			axios.post('/events/customer', data)
+			.then(function (response) {
+			    dispatch(addCustomerInfo(response.data))
+			    if(callback) callback()
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+	}
+
+}
+
+export {addEventAsync , updateEventAsync, fetchEventsAsync ,deleteEventAsync, addEventToCartAsync , addTotalToCheckOutAsync, stripePaySync, addCustomerDataAsync}

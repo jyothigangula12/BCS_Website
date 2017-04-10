@@ -7,7 +7,7 @@ body {
 .active {
   color: orange;
 }
-.nav-tabs>li>a {
+/*.nav-tabs>li>a {
   color: grey;
       border-radius: 0 !important; 
 }
@@ -19,7 +19,7 @@ body {
 a {
     color: orange !important;
     text-decoration: none;
-}
+}*/
 .nav-tabs {
     background-color: black;
 }
@@ -51,6 +51,14 @@ span.input-group-addon {
 }
 #checkoutButton {
   width: 100%;
+}
+
+#checkoutBilling {
+  margin-bottom: 3em;
+}
+
+#agreeTC {
+  margin: 1em 0;
 }
 
 /* from Stripe */
@@ -166,6 +174,14 @@ label > span {
 
 .success.visible, .error.visible {
   display: inline;
+}
+
+.social_share_container {
+  display: flex;
+}
+
+.social_share_buttons {
+  margin-right: 0.5em;
 }
 
 .error {
