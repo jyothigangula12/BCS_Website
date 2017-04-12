@@ -7,12 +7,11 @@ const EventData = function (state = [], action) {
         case 'ADD_EVENT':
             return state.concat(action.data)
         case 'DELETE_EVENT':
+        debugger
                 const newState = [...state]
-                   var tempState = newState.filter(function(el){
+                   return state.filter(function(el){
                         return (el._id !== action.data.event._id)
                     }) 
-
-            return tempState
         case 'UPDATE_EVENT' :
               const tempState = [...state]
               for(let i in tempState) {
@@ -33,7 +32,7 @@ const CartData = function (state = [], action) {
         case 'ADD_EVENT_TO_CART':
         // check if product is already in the cart
         // if so, update the amount
-        debugger
+        
         if (!state[0]) {return state.concat(action.data)}
         else {const tempState = [...state]
                       for(let i in tempState) {
@@ -53,10 +52,9 @@ const CartData = function (state = [], action) {
            
         case 'DELETE_EVENT_FROM_CART':
             const newState = [...state]
-                   var tempState = newState.filter(function(el){
-                        return (el._id !== action.data.event._id)
-                    }) 
-  
+            return state.filter(function(el){
+                return (el.event._id !== action.data.event.event._id)
+             }) 
         default:
             return state
     }

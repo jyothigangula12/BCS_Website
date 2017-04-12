@@ -8,6 +8,7 @@ const deleteEvent = (data) => {return {type : "DELETE_EVENT",data}}
 const addEventToCart = (data) => {return {type: "ADD_EVENT_TO_CART", data}}
 const addToCheckOut = (data) => {return {type : "ADD_TOTAL_TO_CHECKOUT",data}}
 const addCustomerInfo = (data) => {return {type: "ADD_CUSTOMER_INFO", data}}
+const deleteFromCart = (data) => {return {type: "DELETE_EVENT_FROM_CART", data}}
 
 
 const stripePaySync = (event , callback) => {
@@ -65,7 +66,9 @@ const deleteEventAsync = (data, callback) => {
 		return (dispatch) => {
 			axios.post('/events/deleteevent', data)
 			  .then(function (response) {
-			    dispatch(deleteEvent(response.data))
+			  	if (response.data.ok === 1){
+			    	dispatch(deleteEvent(data))			  		
+			  	}
 			    if(callback) callback()
 			  })
 			  .catch(function (error) {
@@ -89,6 +92,12 @@ const addTotalToCheckOutAsync = (data, callback) => {
 	}
 }
 
+const deleteCartAsync = (data, callback) => {
+	return (dispatch) => {
+		dispatch(deleteFromCart(data))
+		if(callback) callback()
+	}
+}
 const addCustomerDataAsync = (data, callback) => {
 
 	return (dispatch) => {
@@ -104,4 +113,4 @@ const addCustomerDataAsync = (data, callback) => {
 
 }
 
-export {addEventAsync , updateEventAsync, fetchEventsAsync ,deleteEventAsync, addEventToCartAsync , addTotalToCheckOutAsync, stripePaySync, addCustomerDataAsync}
+export {addEventAsync , updateEventAsync, fetchEventsAsync ,deleteEventAsync, addEventToCartAsync , addTotalToCheckOutAsync, stripePaySync, addCustomerDataAsync , deleteCartAsync ,deleteFromCart}

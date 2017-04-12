@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactBootstrap from 'react-bootstrap'
 import {ReactScriptLoaderMixin} from 'react-script-loader'
-import {FieldGroup, FormGroup, FormControl, ControlLabel, Checkbox, Button, Col , Panel,NavLink} from 'react-bootstrap'
+import {FieldGroup, FormGroup, FormControl, ControlLabel, Checkbox, Col , Panel,NavLink} from 'react-bootstrap'
+import { Button, Row } from 'react-materialize'
 // import stripe from 'stripe'
 import {addCustomerDataAsync} from '../store/actions'
 import Provider from 'react-redux'
@@ -43,11 +44,10 @@ class GeneralInformation extends React.Component{
 render() {
 			console.log("--this.state.customer--", this.state.customer)
 return ( 
-		<div id="checkoutBilling">
+		<div id="checkoutBilling" className="content">
 		<h2>Checkout page</h2>
 		<h3>Please fill out your billing details</h3>
 			<form onSubmit = {this.handleSubmit.bind(this)}>
-			<Col md={6} >
 				<ControlLabel>Enter your first name</ControlLabel>
 				<FormControl
 				id="formControlsText"
@@ -96,8 +96,6 @@ return (
 				placeholder="Enter your phone number"
 				onChange = {this.handleChange.bind(this)}>
 				</FormControl>
-				</Col>
-				<Col md={6}  >
 				<ControlLabel>Country</ControlLabel>
 				<FormGroup controlId="formControlsSelect">
 				<FormControl componentClass="select" name="country" placeholder="select"
@@ -139,12 +137,10 @@ return (
 				placeholder="If you have any order notes please enter them here"
 				onChange = {this.handleChange.bind(this)}>
 				</FormControl>
-				</Col>
 				<p id="agreeTC">
 				By clicking the Next button you agree to our terms and conditions
 				</p>
-				<Button type="submit">Next</Button>	
-						 
+				<Button className="grey" type="submit">Next</Button>	
 				</form>
 		</div>
 	)
@@ -205,7 +201,7 @@ class StripePaymentForm extends React.Component{
         		self.setState({ paymentError: response.error.message, submitDisabled: false });
       		}
       		else {
-      			debugger
+      			
       			var Id = self.props.customer[0]._id.slice(-7)
       			self.setState({ paymentComplete: true, submitDisabled: false, token: response.id, orderID: Id });
         		// make request to your server here!
@@ -246,8 +242,7 @@ class StripePaymentForm extends React.Component{
     else {
       return (
 		<div>
-		<h3>Please select your payment method</h3>
-		<h4>Pay with Stripe</h4>
+		<h4>Pay with credit/debit card</h4>
 		<Col md={6}  >
 	      	<form onSubmit={this.onSubmit.bind(this)} >
 	        	<span>{ this.state.paymentError }</span><br />
@@ -259,7 +254,7 @@ class StripePaymentForm extends React.Component{
 		        </FormControl>
 		        <FormControl type='text' data-stripe='cvc' placeholder='cvc' >
 		        </FormControl>
-		        <Button disabled={this.state.submitDisabled} type='submit' value='Purchase'>Purchase</Button>
+		        <Button disabled={this.state.submitDisabled} type='submit' className="grey" value='Purchase'>Purchase</Button>
 	        </form>
         </Col>
 		</div>
@@ -281,7 +276,7 @@ class CheckOut extends React.Component {
 	render(){
 		return (
 			
-			<div>
+			<div className="content">
 				<ConnectedInfoComp/>
 				<ConnectedComp/>	
 			</div>

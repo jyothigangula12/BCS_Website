@@ -12,7 +12,8 @@ import Accordion from 'react-bootstrap/lib/Accordion'
 import Panel from 'react-bootstrap/lib/Panel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import HelpBlock from 'react-bootstrap/lib/HelpBlock'
-import Button from 'react-bootstrap/lib/Button'
+// import Button from 'react-bootstrap/lib/Button'
+import { Button, Row } from 'react-materialize'
 import Col from 'react-bootstrap/lib/Col'
 import LinkContainer from 'react-router-bootstrap/lib/LinkContainer'
 
@@ -59,10 +60,13 @@ class Admin extends React.Component {
 	}
 
 	render() {
-		return (			
-			<div className = 'row'>
+		return (
+			<div>
+			<div className='pageTitle'>
+	    	<h2>Admin area</h2>
+	    	</div>			
+			<div className = 'row content'>
 			<div className = "col-md-12">
-			<h1>Admin page</h1>
 			<Accordion>
 			<Panel header="Add new event">
 			<div>
@@ -109,7 +113,7 @@ class Admin extends React.Component {
 
 			<FormGroup controlId="formControlsEventimage">
 			Event image (a link)
-			<FormControl type="text" name="eventImage" placeholder="Event image" />
+			<FormControl type="text" name="image" placeholder="Event image" />
 			</FormGroup>
 
 			<FormGroup controlId="formControlsDetails">
@@ -131,7 +135,7 @@ class Admin extends React.Component {
 			Event organizer
 			<FormControl type="text" name="organizer" placeholder="Event organizer" />
 			</FormGroup>             
-			<Button type="submit">Submit</Button>
+			<Button className="grey" type="submit">Submit</Button>
 			</form>
 			</div>
 			</Panel>
@@ -157,6 +161,7 @@ class Admin extends React.Component {
 			<UpdateEventForm visibleEvent = {this.state.visibleEvent} events = {this.props.events} updateEventAsync = {this.props.updateEventAsync} deleteEventAsync = {this.props.deleteEventAsync}/>	
 		</Panel>
 		</Accordion>
+		</div>
 		</div>
 		</div>
 		)}
@@ -198,7 +203,7 @@ class Admin extends React.Component {
 			event.preventDefault()
 			console.log("Hey am in handleDelete", this.state)
 			this.props.deleteEventAsync(this.state, ()=>{
-				console.log('event deleted!!!!')
+				console.log('event deleted!!!!',this.state)
 			
 			})			
 		}
@@ -250,7 +255,7 @@ class Admin extends React.Component {
 
 				<FormGroup controlId="formControlsEventimage">
 				Event image (a link)
-				<FormControl type="text" name="eventImage" placeholder="Event image" onChange = {this.handleChange.bind(this)} value={this.state.event.eventImage || ""}/>
+				<FormControl type="text" name="image" placeholder="Event image" onChange = {this.handleChange.bind(this)} value={this.state.event.image || ""}/>
 				</FormGroup>
 
 				<FormGroup controlId="formControlsDetails">
@@ -272,8 +277,8 @@ class Admin extends React.Component {
 				Event organizer
 				<FormControl type="text" name="organizer" placeholder="Event organizer" onChange = {this.handleChange.bind(this)} value={this.state.event.organizer || ""}/>
 				</FormGroup>             
-				<Button type="submit">Save changes</Button>
-				<Button type="button" onClick={this.handleRemove.bind(this)}>Delete event</Button>
+				<Button className="grey" style={{marginRight:'1em'}} type="submit">Save changes</Button>
+				<Button className="grey" type="button" onClick={this.handleRemove.bind(this)}>Delete event</Button>
 
 				
 				</form>

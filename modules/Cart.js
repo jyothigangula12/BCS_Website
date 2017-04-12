@@ -4,7 +4,8 @@ import Table from 'react-bootstrap/lib/Table'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import InputGroup from 'react-bootstrap/lib/InputGroup'
-import Button from 'react-bootstrap/lib/Button'
+// import Button from 'react-bootstrap/lib/Button'
+import { Button, Row } from 'react-materialize'
 import NavLink from './NavLink'
 //import store from '../store/index'
 
@@ -12,14 +13,13 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 
-import {addTotalToCheckOutAsync} from '../store/actions'
+import {addTotalToCheckOutAsync ,deleteCartAsync} from '../store/actions'
 
 import axios from 'axios'
 
 class Cart extends React.Component{
 	constructor(props){
 		super()
-		this.titlearray=[]
 		this.Amount = 0 
 		this.subTotal = 0
 		this.number = []
@@ -37,12 +37,20 @@ class Cart extends React.Component{
 	    data.subTotal = this.subTotal
     	this.props.addTotalToCheckOutAsync(data, ()=>{console.log('checkout total added!!!!')})
     }
-		
+    
+    handleDelete(event){
+    	console.log('event',event)
+    	var data={}
+    	data.event = event
+    	this.props.deleteCartAsync(data, ()=>{console.log('CartData has deleted!!!!')})
+    }
   render() {
     return (
-    	<div>
+<div>
+		<div className='pageTitle'>
     	<h2>Cart</h2>
-
+    	</div>
+    	<div className="content">
 		  <Table responsive>
 		    <thead>
 		      <tr>
@@ -60,7 +68,7 @@ class Cart extends React.Component{
             { 
 		     this.props.cartObj.map( (event, i) => {
             	return <tr key={i}>
-			        <td><i className="fa fa-trash-o" aria-hidden="true"></i></td>
+			        <td><i className="fa fa-trash-o" aria-hidden="true" onClick = {this.handleDelete.bind(this , event)}></i></td>
 			        <td>{event.event.title}</td>
 			        <td>{event.event.price}</td>
 			        <td>{event.event.details}</td>
@@ -74,33 +82,35 @@ class Cart extends React.Component{
             
 
 			<div id="cartTotal">
-			<h2>Cart Total</h2>
+
+			<h4>Cart Total</h4>
+
 			<form >
 			
 		    <FormGroup>
 		      <InputGroup>
 		        <InputGroup.Addon>Subtotal</InputGroup.Addon>
-		        <FormControl type="text" value = {this.subTotal}/>
+		        <FormControl style={{paddingLeft: '1em'}} type="text" value = {this.subTotal}/>
 		      </InputGroup>
   		    </FormGroup>
 		
 		    <FormGroup>
 		    <InputGroup>
 		        <InputGroup.Addon>Total (IVA incl.)</InputGroup.Addon>
-		        <FormControl type="text" value = {this.Amount.toFixed(2)}
+		        <FormControl style={{paddingLeft: '1em'}} type="text" value = {this.Amount.toFixed(2)}
 		         />
 		      </InputGroup>
 		    </FormGroup>
-		    <NavLink to="/checkout"><Button id="checkoutButton" type = "button" onClick = {this.handleCheckOut.bind(this)}>PROCEED TO CHECKOUT</Button></NavLink>
+		    <NavLink to="/checkout"><Button className="grey" id="checkoutButton" type = "button" onClick = {this.handleCheckOut.bind(this)}>PROCEED TO CHECKOUT</Button></NavLink>
 		    </form>	
 </div>
         </div>
-		
+		</div>
    )
 }
 }
 
 const mapStateToProps = (state) => ({cartObj: state.CartData}) // getting info from the store
-const mapDispatchToProps = (dispatch) => bindActionCreators({addTotalToCheckOutAsync}, dispatch) // sending info to the store
+const mapDispatchToProps = (dispatch) => bindActionCreators({addTotalToCheckOutAsync , deleteCartAsync}, dispatch) // sending info to the store
 export default connect(mapStateToProps , mapDispatchToProps)(Cart) // we connect both things from above
  

@@ -5,9 +5,10 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 
 import FormControl from 'react-bootstrap/lib/FormControl'
 import HelpBlock from 'react-bootstrap/lib/HelpBlock'
-import Button from 'react-bootstrap/lib/Button'
+// import Button from 'react-bootstrap/lib/Button'
 import Col from 'react-bootstrap/lib/Col'
 import LinkContainer from 'react-router-bootstrap/lib/LinkContainer'
+import { Button, Row } from 'react-materialize'
 
 import axios from 'axios'
 
@@ -40,40 +41,56 @@ class Contacts extends React.Component {
 	render() {
 		return (
 			<div>
-			<h2>Contacts</h2>
-			<form onSubmit={this.handleSubmit.bind(this)}>
-				<FormGroup controlId="formControlsName">
-				<Col componentClass={ControlLabel} sm={2}>
-				Your name
-				</Col>
-				<Col sm={10}>
-				<FormControl type="text" name="name" placeholder="Your name" />
-				</Col>
-				</FormGroup>
+			<div className='pageTitle'>
+			<h2>Contact us</h2>
+			</div>
+			<div className="content">
+			<div className="row">
+			<form onSubmit={this.handleSubmit.bind(this)} className="col s12">
 
+				<div className="row">
+				<div className="input-field col s12">
+						<FormGroup controlId="formControlsName">
+						Your name				
+						<FormControl type="text" name="name" placeholder="Your name" />
+						</FormGroup>
+				</div>
+				</div>
+
+<div className="row">
+<div className="input-field col s12">
 				<FormGroup controlId="formControlsEmail">
-				<Col componentClass={ControlLabel} sm={2}>
 				Email
-				</Col>
-				<Col sm={10}>
 				<FormControl type="email" name="email" placeholder="Your Email" />
-				</Col>
 				</FormGroup>
+</div>
+</div>
 
-				<FormGroup controlId="formControlsMessage">
-				<Col componentClass={ControlLabel} sm={2}>
-				<ControlLabel>Your message</ControlLabel>
-				</Col>
-				<Col sm={10}>
-				<FormControl componentClass="textarea" name="message" placeholder="Type your message" />
-				</Col>
+
+
+
+      <div className="row">
+        <div className="input-field col s12">
+
+
+          <FormGroup controlId="formControlsMessage">
+				Your message
+				<FormControl className="materialize-textarea" componentClass="textarea" name="message" placeholder="Type your message" />
 				</FormGroup>
+</div>
+  </div>
 
-				<Col sm={10}>
-				<Button type="submit">Submit</Button>
-				</Col>
+
+<div className="row">
+<div className="input-field col s12">
+				<Button type="submit" className="grey">Submit</Button>
+</div>
+</div>				
+
+				
 			</form>
-
+			</div>
+			</div>
 			</div>
 		)
 	}
