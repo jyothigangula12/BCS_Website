@@ -102268,7 +102268,7 @@
 									if (response.error) {
 											self.setState({ paymentError: response.error.message, submitDisabled: false });
 									} else {
-
+											debugger;
 											var Id = self.props.customer[0]._id.slice(-7);
 											self.setState({ paymentComplete: true, submitDisabled: false, token: response.id, orderID: Id });
 											// make request to your server here!
