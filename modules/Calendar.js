@@ -94,6 +94,7 @@ handleCheckOut(event){
 			this.props.events.sort(function(a,b) { 
 			    return new Date(a.startDate).getTime() - new Date(b.startDate).getTime() 
 			});
+
     const shareUrl = 'http://www.google.com';
     const title = 'Built with react';
 		return (
@@ -104,8 +105,8 @@ handleCheckOut(event){
 			<div className="content">
 				<Accordion>
 					{this.props.events.map( (event, i) => {
-
-                        return(
+						
+                            return(
 								<Panel header={<div>{event.startDate} – {event.endDate}<h2>{event.title}: <small>{event.subtitle}</small></h2><div>{event.startTime} : {event.endTime}</div></div>} eventKey={i} key={i}>
 								<div>
 								<div><span><strong>Type: </strong></span>{event.eventType}</div>

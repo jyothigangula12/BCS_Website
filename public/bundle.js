@@ -95101,6 +95101,7 @@
 				this.props.events.sort(function (a, b) {
 					return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
 				});
+
 				var shareUrl = 'http://www.google.com';
 				var title = 'Built with react';
 				return _react2.default.createElement(
@@ -101656,7 +101657,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+			value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -101713,230 +101714,232 @@
 	//import store from '../store/index'
 
 	var Cart = function (_React$Component) {
-		_inherits(Cart, _React$Component);
+			_inherits(Cart, _React$Component);
 
-		function Cart(props) {
-			_classCallCheck(this, Cart);
+			function Cart(props) {
+					_classCallCheck(this, Cart);
 
-			var _this = _possibleConstructorReturn(this, (Cart.__proto__ || Object.getPrototypeOf(Cart)).call(this));
+					var _this = _possibleConstructorReturn(this, (Cart.__proto__ || Object.getPrototypeOf(Cart)).call(this));
 
-			_this.Amount = 0;
-			_this.subTotal = 0;
-			_this.number = [];
-			_this.total = [];
-			var _iteratorNormalCompletion = true;
-			var _didIteratorError = false;
-			var _iteratorError = undefined;
+					_this.Amount = 0;
+					_this.subTotal = 0;
+					_this.number = [];
+					_this.total = [];
+					var _iteratorNormalCompletion = true;
+					var _didIteratorError = false;
+					var _iteratorError = undefined;
 
-			try {
-				for (var _iterator = props.cartObj[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-					var item = _step.value;
+					try {
+							for (var _iterator = props.cartObj[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+									var item = _step.value;
 
-					console.log("____props.cartObj+++++", props.cartObj);
-					_this.Amount = _this.Amount + item.event.price * item.number.number + item.event.price * item.number.number * 0.21;
-					_this.subTotal = _this.subTotal + item.event.price * item.number.number;
-					console.log("++++++++Total++++++++", _this.Amount, "++++++Subtotal+++++++", _this.subTotal);
-				}
-			} catch (err) {
-				_didIteratorError = true;
-				_iteratorError = err;
-			} finally {
-				try {
-					if (!_iteratorNormalCompletion && _iterator.return) {
-						_iterator.return();
+									console.log("____props.cartObj+++++", props.cartObj);
+									_this.Amount = _this.Amount + item.event.price * item.number.number + item.event.price * item.number.number * 0.21;
+									_this.subTotal = _this.subTotal + item.event.price * item.number.number;
+									console.log("++++++++Total++++++++", _this.Amount, "++++++Subtotal+++++++", _this.subTotal);
+							}
+					} catch (err) {
+							_didIteratorError = true;
+							_iteratorError = err;
+					} finally {
+							try {
+									if (!_iteratorNormalCompletion && _iterator.return) {
+											_iterator.return();
+									}
+							} finally {
+									if (_didIteratorError) {
+											throw _iteratorError;
+									}
+							}
 					}
-				} finally {
-					if (_didIteratorError) {
-						throw _iteratorError;
+
+					return _this;
+			}
+
+			_createClass(Cart, [{
+					key: 'handleCheckOut',
+					value: function handleCheckOut(event) {
+							var data = {};
+							data.Total = this.Amount;
+							data.subTotal = this.subTotal;
+							this.props.addTotalToCheckOutAsync(data, function () {
+									console.log('checkout total added!!!!');
+							});
 					}
-				}
-			}
+			}, {
+					key: 'handleDelete',
+					value: function handleDelete(event) {
+							console.log('event', event);
+							var data = {};
+							data.event = event;
+							this.props.deleteCartAsync(data, function () {
+									console.log('CartData has deleted!!!!');
+							});
+							this.subTotal = this.subTotal - event.event.price * event.number.number;
+							this.Amount = this.subTotal + this.subTotal * 0.21;
+					}
+			}, {
+					key: 'render',
+					value: function render() {
+							var _this2 = this;
 
-			return _this;
-		}
-
-		_createClass(Cart, [{
-			key: 'handleCheckOut',
-			value: function handleCheckOut(event) {
-				var data = {};
-				data.Total = this.Amount;
-				data.subTotal = this.subTotal;
-				this.props.addTotalToCheckOutAsync(data, function () {
-					console.log('checkout total added!!!!');
-				});
-			}
-		}, {
-			key: 'handleDelete',
-			value: function handleDelete(event) {
-				console.log('event', event);
-				var data = {};
-				data.event = event;
-				this.props.deleteCartAsync(data, function () {
-					console.log('CartData has deleted!!!!');
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this2 = this;
-
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'div',
-						{ className: 'pageTitle' },
-						_react2.default.createElement(
-							'h2',
-							null,
-							'Cart'
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'content' },
-						_react2.default.createElement(
-							_Table2.default,
-							{ responsive: true },
-							_react2.default.createElement(
-								'thead',
-								null,
-								_react2.default.createElement(
-									'tr',
-									null,
-									_react2.default.createElement('th', null),
-									_react2.default.createElement(
-										'th',
-										null,
-										'Product'
-									),
-									_react2.default.createElement(
-										'th',
-										null,
-										'Price'
-									),
-									_react2.default.createElement(
-										'th',
-										null,
-										'Description'
-									),
-									_react2.default.createElement(
-										'th',
-										null,
-										'Amount'
-									),
-									_react2.default.createElement(
-										'th',
-										null,
-										'Total'
-									)
-								)
-							),
-							_react2.default.createElement(
-								'tbody',
-								null,
-								this.props.cartObj.map(function (event, i) {
-									return _react2.default.createElement(
-										'tr',
-										{ key: i },
-										_react2.default.createElement(
-											'td',
-											null,
-											_react2.default.createElement('i', { className: 'fa fa-trash-o', 'aria-hidden': 'true', onClick: _this2.handleDelete.bind(_this2, event) })
-										),
-										_react2.default.createElement(
-											'td',
-											null,
-											event.event.title
-										),
-										_react2.default.createElement(
-											'td',
-											null,
-											event.event.price
-										),
-										_react2.default.createElement(
-											'td',
-											null,
-											event.event.details
-										),
-										_react2.default.createElement(
-											'td',
-											null,
-											event.number.number
-										),
-										_react2.default.createElement(
-											'td',
-											null,
-											event.event.price * event.number.number
-										)
-									);
-								})
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ id: 'cartTotal' },
-							_react2.default.createElement(
-								'h4',
-								null,
-								'Cart Total'
-							),
-							_react2.default.createElement(
-								'form',
-								null,
-								_react2.default.createElement(
-									_FormGroup2.default,
+							return _react2.default.createElement(
+									'div',
 									null,
 									_react2.default.createElement(
-										_InputGroup2.default,
-										null,
-										_react2.default.createElement(
-											_InputGroup2.default.Addon,
-											null,
-											'Subtotal'
-										),
-										_react2.default.createElement(_FormControl2.default, { style: { paddingLeft: '1em' }, type: 'text', value: this.subTotal })
-									)
-								),
-								_react2.default.createElement(
-									_FormGroup2.default,
-									null,
+											'div',
+											{ className: 'pageTitle' },
+											_react2.default.createElement(
+													'h2',
+													null,
+													'Cart'
+											)
+									),
 									_react2.default.createElement(
-										_InputGroup2.default,
-										null,
-										_react2.default.createElement(
-											_InputGroup2.default.Addon,
-											null,
-											'Total (IVA incl.)'
-										),
-										_react2.default.createElement(_FormControl2.default, { style: { paddingLeft: '1em' }, type: 'text', value: this.Amount.toFixed(2)
-										})
+											'div',
+											{ className: 'content' },
+											_react2.default.createElement(
+													_Table2.default,
+													{ responsive: true },
+													_react2.default.createElement(
+															'thead',
+															null,
+															_react2.default.createElement(
+																	'tr',
+																	null,
+																	_react2.default.createElement('th', null),
+																	_react2.default.createElement(
+																			'th',
+																			null,
+																			'Product'
+																	),
+																	_react2.default.createElement(
+																			'th',
+																			null,
+																			'Price'
+																	),
+																	_react2.default.createElement(
+																			'th',
+																			null,
+																			'Description'
+																	),
+																	_react2.default.createElement(
+																			'th',
+																			null,
+																			'Amount'
+																	),
+																	_react2.default.createElement(
+																			'th',
+																			null,
+																			'Total'
+																	)
+															)
+													),
+													_react2.default.createElement(
+															'tbody',
+															null,
+															this.props.cartObj.map(function (event, i) {
+																	return _react2.default.createElement(
+																			'tr',
+																			{ key: i },
+																			_react2.default.createElement(
+																					'td',
+																					null,
+																					_react2.default.createElement('i', { className: 'fa fa-trash-o', 'aria-hidden': 'true', onClick: _this2.handleDelete.bind(_this2, event) })
+																			),
+																			_react2.default.createElement(
+																					'td',
+																					null,
+																					event.event.title
+																			),
+																			_react2.default.createElement(
+																					'td',
+																					null,
+																					event.event.price
+																			),
+																			_react2.default.createElement(
+																					'td',
+																					null,
+																					event.event.details
+																			),
+																			_react2.default.createElement(
+																					'td',
+																					null,
+																					event.number.number
+																			),
+																			_react2.default.createElement(
+																					'td',
+																					null,
+																					event.event.price * event.number.number
+																			)
+																	);
+															})
+													)
+											),
+											_react2.default.createElement(
+													'div',
+													{ id: 'cartTotal' },
+													_react2.default.createElement(
+															'h4',
+															null,
+															'Cart Total'
+													),
+													_react2.default.createElement(
+															'form',
+															null,
+															_react2.default.createElement(
+																	_FormGroup2.default,
+																	null,
+																	_react2.default.createElement(
+																			_InputGroup2.default,
+																			null,
+																			_react2.default.createElement(
+																					_InputGroup2.default.Addon,
+																					null,
+																					'Subtotal'
+																			),
+																			_react2.default.createElement(_FormControl2.default, { style: { paddingLeft: '1em' }, type: 'text', value: this.subTotal })
+																	)
+															),
+															_react2.default.createElement(
+																	_FormGroup2.default,
+																	null,
+																	_react2.default.createElement(
+																			_InputGroup2.default,
+																			null,
+																			_react2.default.createElement(
+																					_InputGroup2.default.Addon,
+																					null,
+																					'Total (IVA incl.)'
+																			),
+																			_react2.default.createElement(_FormControl2.default, { style: { paddingLeft: '1em' }, type: 'text', value: this.Amount.toFixed(2)
+																			})
+																	)
+															),
+															_react2.default.createElement(
+																	_NavLink2.default,
+																	{ to: '/checkout' },
+																	_react2.default.createElement(
+																			_reactMaterialize.Button,
+																			{ className: 'grey', id: 'checkoutButton', type: 'button', onClick: this.handleCheckOut.bind(this) },
+																			'PROCEED TO CHECKOUT'
+																	)
+															)
+													)
+											)
 									)
-								),
-								_react2.default.createElement(
-									_NavLink2.default,
-									{ to: '/checkout' },
-									_react2.default.createElement(
-										_reactMaterialize.Button,
-										{ className: 'grey', id: 'checkoutButton', type: 'button', onClick: this.handleCheckOut.bind(this) },
-										'PROCEED TO CHECKOUT'
-									)
-								)
-							)
-						)
-					)
-				);
-			}
-		}]);
+							);
+					}
+			}]);
 
-		return Cart;
+			return Cart;
 	}(_react2.default.Component);
 
 	var mapStateToProps = function mapStateToProps(state) {
-		return { cartObj: state.CartData };
+			return { cartObj: state.CartData };
 	}; // getting info from the store
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-		return (0, _redux.bindActionCreators)({ addTotalToCheckOutAsync: _actions.addTotalToCheckOutAsync, deleteCartAsync: _actions.deleteCartAsync }, dispatch);
+			return (0, _redux.bindActionCreators)({ addTotalToCheckOutAsync: _actions.addTotalToCheckOutAsync, deleteCartAsync: _actions.deleteCartAsync }, dispatch);
 	}; // sending info to the store
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Cart); // we connect both things from above
 

@@ -13,6 +13,9 @@
 color: black !important;
 }
 
+iframe {
+  margin: 0 0 1em 0;
+}
 .nav-tabs>li>a {
   color: grey;
   border-radius: 0 !important; 

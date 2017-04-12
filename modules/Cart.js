@@ -43,6 +43,8 @@ class Cart extends React.Component{
     	var data={}
     	data.event = event
     	this.props.deleteCartAsync(data, ()=>{console.log('CartData has deleted!!!!')})
+    	this.subTotal = this.subTotal - event.event.price * event.number.number
+		this.Amount = this.subTotal + this.subTotal * 0.21
     }
   render() {
     return (
