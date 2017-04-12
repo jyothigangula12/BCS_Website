@@ -28,11 +28,10 @@ export default React.createClass({
           {/*<PageHeader>A new website <small>Built with React, yo!</small></PageHeader>*/}
 
 {/* main nav bar*/}
-          <Navbar>
-          <div className="nav-wrapper">
-          <a href="#" className="brand-logo">Logo</a>
-          <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
+          <nav>
+          <div className="nav-wrapper grey-text text-darken-4">
+          <NavLink to="/" onlyActiveOnIndex className="brand-logo"><img src='https://i1.wp.com/www.barcelonacodeschool.com/wp-content/uploads/2016/03/barcelona-code-school-logo-200.png'/></NavLink>
+          <ul id="nav-mobile" className="right hide-on-med-and-down ">
           <li><NavLink to="/calendar">Calendar</NavLink></li>          
           <li><NavLink to="/contacts">Contact us</NavLink></li>
           <li><NavLink to="/about">About</NavLink></li>
@@ -40,18 +39,19 @@ export default React.createClass({
           <li><NavLink to="/admin">Admin page</NavLink></li>
           </ul>
           </div>
-          </Navbar>
+          </nav>
 
-{/*old nav bar*/}
+{/*old nav bar
         <Nav bsStyle="tabs" >
           <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
           <li><NavLink to="/calendar">Calendar</NavLink></li>          
           <li><NavLink to="/contacts">Contact us</NavLink></li>
           <li><NavLink to="/about">About</NavLink></li>
-          {/*<li><NavLink to="/checkout">Checkout</NavLink></li>*/}
+          {/*<li><NavLink to="/checkout">Checkout</NavLink></li>
           <li><NavLink to="/admin">Admin page</NavLink></li>
-          {/*<li><NavLink to="/repos">Repos</NavLink></li>*/}
+          <li><NavLink to="/repos">Repos</NavLink></li>
       </Nav>
+    */}
         {this.props.children}
 
       </div>
