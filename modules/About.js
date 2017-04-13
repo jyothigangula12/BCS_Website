@@ -5,7 +5,7 @@ export default React.createClass({
     return (
     	<div>
 		<div className='pageTitle'>
-    	<h2>About us</h2>
+    	<h3>About us</h3>
     	</div>
     	<div className="content">About</div>
     	</div>

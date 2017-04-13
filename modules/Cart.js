@@ -50,7 +50,7 @@ class Cart extends React.Component{
     return (
 <div>
 		<div className='pageTitle'>
-    	<h2>Cart</h2>
+    	<h3>Cart</h3>
     	</div>
     	<div className="content">
 		  <Table responsive>

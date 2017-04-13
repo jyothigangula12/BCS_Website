@@ -31209,6 +31209,8 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -31227,6 +31229,8 @@
 
 	var _reactBootstrap = __webpack_require__(400);
 
+	var _reactRouter = __webpack_require__(178);
+
 	var _materializeCss = __webpack_require__(559);
 
 	var _materializeCss2 = _interopRequireDefault(_materializeCss);
@@ -31237,110 +31241,261 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// import { Button, Row, Col, Icon } from 'react-materialize';
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	//import addEvent from '../store/actions'
 
 	// import injectTapEventPlugin from 'react-tap-event-plugin'
 
-	exports.default = _react2.default.createClass({
-	  displayName: 'App',
-	  render: function render() {
-	    return _react2.default.createElement(
-	      _MuiThemeProvider2.default,
-	      null,
-	      _react2.default.createElement(
-	        'div',
+
+	// import { Button, Row, Col, Icon } from 'react-materialize';
+
+
+	var AppNavbar = function (_React$Component) {
+	  _inherits(AppNavbar, _React$Component);
+
+	  function AppNavbar() {
+	    _classCallCheck(this, AppNavbar);
+
+	    return _possibleConstructorReturn(this, (AppNavbar.__proto__ || Object.getPrototypeOf(AppNavbar)).apply(this, arguments));
+	  }
+
+	  _createClass(AppNavbar, [{
+	    key: 'handleSelect',
+	    value: function handleSelect(event) {
+	      _reactRouter.browserHistory.push("/" + event);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _MuiThemeProvider2.default,
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { id: 'topBar' },
-	          _react2.default.createElement(
-	            'a',
-	            { href: 'tel:+666 13 13 13' },
-	            'Tel: 666 13 13 13'
-	          ),
-	          ' | ',
-	          _react2.default.createElement(
-	            _NavLink2.default,
-	            { to: '/contacts' },
-	            ' email@email.com'
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { id: 'socialTopBar' },
-	            'fb | twitter | skype |',
-	            _react2.default.createElement(
-	              'span',
-	              null,
-	              ' '
-	            ),
-	            _react2.default.createElement(
-	              _NavLink2.default,
-	              { to: '/cart' },
-	              _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'glyphicon glyphicon-shopping-cart' })
-	            ),
-	            " "
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'nav',
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'nav-wrapper grey-text text-darken-4' },
+	            { id: 'topBar' },
+	            _react2.default.createElement(
+	              'a',
+	              { href: 'tel:+666 13 13 13' },
+	              'Tel: 666 13 13 13'
+	            ),
+	            ' |',
 	            _react2.default.createElement(
 	              _NavLink2.default,
-	              { to: '/', onlyActiveOnIndex: true, className: 'brand-logo' },
-	              _react2.default.createElement('img', { src: 'https://i1.wp.com/www.barcelonacodeschool.com/wp-content/uploads/2016/03/barcelona-code-school-logo-200.png' })
+	              { to: '/contacts' },
+	              ' email@email.com'
 	            ),
 	            _react2.default.createElement(
-	              'ul',
-	              { id: 'nav-mobile', className: 'right hide-on-med-and-down ' },
+	              'span',
+	              null,
+	              ' |',
 	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _NavLink2.default,
-	                  { to: '/calendar' },
-	                  'Calendar'
-	                )
+	                'a',
+	                { href: 'https://www.facebook.com/BarcelonaCodingSchool/' },
+	                _react2.default.createElement('i', { className: 'fa fa-facebook', 'aria-hidden': 'true' })
+	              ),
+	              ' |',
+	              _react2.default.createElement(
+	                'a',
+	                { href: 'http://www.twitter.com/gk3000' },
+	                _react2.default.createElement('i', { className: 'fa fa-twitter', 'aria-hidden': 'true' })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              { id: 'cartTopIcon' },
+	              _react2.default.createElement(
+	                _NavLink2.default,
+	                { to: '/cart' },
+	                _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'glyphicon glyphicon-shopping-cart' })
+	              ),
+	              " "
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'nav', style: { "zIndex": 1000, position: "relative" } },
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'desktopMenu', className: 'hide-on-med-and-down' },
+	              _react2.default.createElement(
+	                _NavLink2.default,
+	                { to: '/', onlyActiveOnIndex: true, className: 'brand-logo' },
+	                _react2.default.createElement('img', { src: 'https://i1.wp.com/www.barcelonacodeschool.com/wp-content/uploads/2016/03/barcelona-code-school-logo-200.png' })
 	              ),
 	              _react2.default.createElement(
-	                'li',
-	                null,
+	                'ul',
+	                { id: 'nav-desktop', className: 'right' },
 	                _react2.default.createElement(
-	                  _NavLink2.default,
-	                  { to: '/contacts' },
-	                  'Contact us'
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/calendar' },
+	                    'Calendar'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/contacts' },
+	                    'Contact us'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/about' },
+	                    'About'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/checkout' },
+	                    'Checkout'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/admin' },
+	                    'Admin page'
+	                  )
 	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'mobileMenu', className: 'hide-on-large-only show-on-med-and-down' },
+	              _react2.default.createElement(
+	                _NavLink2.default,
+	                { to: '/', onlyActiveOnIndex: true, className: 'brand-logo left' },
+	                _react2.default.createElement('img', { src: 'https://i1.wp.com/www.barcelonacodeschool.com/wp-content/uploads/2016/03/barcelona-code-school-logo-200.png' })
 	              ),
 	              _react2.default.createElement(
-	                'li',
-	                null,
+	                _reactBootstrap.Nav,
+	                {
+	                  bsStyle: 'tabs',
+	                  activeKey: '1',
+	                  className: 'right ',
+	                  onSelect: this.handleSelect.bind(this) },
 	                _react2.default.createElement(
-	                  _NavLink2.default,
-	                  { to: '/about' },
-	                  'About'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _NavLink2.default,
-	                  { to: '/admin' },
-	                  'Admin page'
+	                  _reactBootstrap.NavDropdown,
+	                  { pullRight: true, eventKey: '1', title: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'glyphicon glyphicon-menu-hamburger' }), id: 'nav-dropdown' },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.MenuItem,
+	                    { eventKey: 'calendar' },
+	                    'Calendar'
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.MenuItem,
+	                    { eventKey: 'contacts' },
+	                    'Contact us'
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.MenuItem,
+	                    { eventKey: 'about' },
+	                    'About'
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.MenuItem,
+	                    { eventKey: 'checkout' },
+	                    'Checkout'
+	                  ),
+	                  _react2.default.createElement(_reactBootstrap.MenuItem, { divider: true }),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.MenuItem,
+	                    { eventKey: 'admin' },
+	                    'Admin Page'
+	                  )
 	                )
 	              )
 	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { "zIndex": 0 } },
+	            this.props.children
 	          )
-	        ),
-	        this.props.children
-	      )
-	    );
-	  }
-	});
-	//import addEvent from '../store/actions'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return AppNavbar;
+	}(_react2.default.Component);
+
+	exports.default = AppNavbar;
+
+	/*<PageHeader>A new website <small>Built with React, yo!</small></PageHeader>*/
+
+	/* main nav bar*/
+	/*
+	<nav>
+	            
+	              <NavLink to="/" onlyActiveOnIndex className="brand-logo">
+	                <img src='https://i1.wp.com/www.barcelonacodeschool.com/wp-content/uploads/2016/03/barcelona-code-school-logo-200.png'/></NavLink>
+	              <ul id="nav-mobile" className="right hide-on-med-and-down ">
+	              <li><NavLink to="/calendar">Calendar</NavLink></li>          
+	              <li><NavLink to="/contacts">Contact us</NavLink></li>
+	              <li><NavLink to="/about">About</NavLink></li>
+	              <li><NavLink to="/checkout">Checkout</NavLink></li>
+	              <li><NavLink to="/admin">Admin page</NavLink></li>
+	              </ul>
+
+
+	              <NavDropdown title="Menu" id="nav-dropdown" className="left hide-on-large-only show-on-med-and-down">
+	                <MenuItem eventKey="4.1">Action</MenuItem>
+	          <MenuItem eventKey="4.2">Another action</MenuItem>
+	          <MenuItem eventKey="4.3">Something else here</MenuItem>
+	          <MenuItem divider />
+	          <MenuItem eventKey="4.4">Separated link</MenuItem>
+	              </NavDropdown>
+	          </nav>
+
+	old nav bar
+	        <Nav bsStyle="tabs" >
+	          <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
+	          <li><NavLink to="/calendar">Calendar</NavLink></li>          
+	          <li><NavLink to="/contacts">Contact us</NavLink></li>
+	          <li><NavLink to="/about">About</NavLink></li>
+	          {/*<li><NavLink to="/checkout">Checkout</NavLink></li>
+	          <li><NavLink to="/admin">Admin page</NavLink></li>
+	          <li><NavLink to="/repos">Repos</NavLink></li>
+	      </Nav>
+	    */
+	/*   <Navbar collapseOnSelect>
+	    <Navbar.Header>
+	      <Navbar.Brand>
+	          <NavLink to="/" onlyActiveOnIndex className="brand-logo"><img src='https://i1.wp.com/www.barcelonacodeschool.com/wp-content/uploads/2016/03/barcelona-code-school-logo-200.png'/></NavLink>
+	      </Navbar.Brand>
+	      <Navbar.Toggle />
+	    </Navbar.Header>
+	    <Navbar.Collapse>
+	      <Nav>
+	          <li><NavLink to="/calendar">Calendar</NavLink></li>          
+	          <li><NavLink to="/contacts">Contact us</NavLink></li>
+	          <li><NavLink to="/about">About</NavLink></li>
+	          <li><NavLink to="/checkout">Checkout</NavLink></li>
+	          <li><NavLink to="/admin">Admin page</NavLink></li>
+	      </Nav>
+	    </Navbar.Collapse>
+	  </Navbar>*/
 
 /***/ },
 /* 307 */
@@ -68638,7 +68793,7 @@
 	        'div',
 	        { className: 'pageTitle' },
 	        _react2.default.createElement(
-	          'h2',
+	          'h3',
 	          null,
 	          'About us'
 	        )
@@ -68753,7 +68908,7 @@
 						'div',
 						{ className: 'pageTitle' },
 						_react2.default.createElement(
-							'h2',
+							'h3',
 							null,
 							'Contact us'
 						)
@@ -95043,7 +95198,6 @@
 				this.props.events.sort(function (a, b) {
 					return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
 				});
-
 				var shareUrl = 'http://www.google.com';
 				var title = 'Built with react';
 				return _react2.default.createElement(
@@ -95053,7 +95207,7 @@
 						'div',
 						{ className: 'pageTitle' },
 						_react2.default.createElement(
-							'h2',
+							'h3',
 							null,
 							'Calendar'
 						)
@@ -95065,215 +95219,216 @@
 							_Accordion2.default,
 							null,
 							this.props.events.map(function (event, i) {
+								if (new Date(event.startDate).getTime() > new Date().getTime()) {
 
-								return _react2.default.createElement(
-									_Panel2.default,
-									{ header: _react2.default.createElement(
+									return _react2.default.createElement(
+										_Panel2.default,
+										{ header: _react2.default.createElement(
+												'div',
+												null,
+												event.startDate,
+												' \u2013 ',
+												event.endDate,
+												_react2.default.createElement(
+													'h2',
+													null,
+													event.title,
+													': ',
+													_react2.default.createElement(
+														'small',
+														null,
+														event.subtitle
+													)
+												),
+												_react2.default.createElement(
+													'div',
+													null,
+													event.startTime,
+													' : ',
+													event.endTime
+												)
+											), eventKey: i, key: i },
+										_react2.default.createElement(
 											'div',
 											null,
-											event.startDate,
-											' \u2013 ',
-											event.endDate,
 											_react2.default.createElement(
-												'h2',
+												'div',
 												null,
-												event.title,
-												': ',
+												_react2.default.createElement('img', { className: 'eventImage', src: event.image })
+											),
+											_react2.default.createElement(
+												'div',
+												null,
 												_react2.default.createElement(
-													'small',
+													'span',
 													null,
-													event.subtitle
+													_react2.default.createElement(
+														'strong',
+														null,
+														'Type: '
+													)
+												),
+												event.eventType
+											),
+											_react2.default.createElement(
+												'div',
+												null,
+												_react2.default.createElement(
+													'span',
+													null,
+													_react2.default.createElement(
+														'strong',
+														null,
+														'Duration: '
+													)
+												),
+												event.eventType2
+											),
+											_react2.default.createElement('div', null),
+											_react2.default.createElement(
+												'div',
+												null,
+												_react2.default.createElement(
+													'span',
+													null,
+													_react2.default.createElement(
+														'strong',
+														null,
+														'Details: '
+													)
+												),
+												event.details
+											),
+											_react2.default.createElement(
+												'div',
+												null,
+												_react2.default.createElement(
+													'strong',
+													null,
+													'Location: '
+												),
+												_react2.default.createElement(
+													'address',
+													null,
+													_react2.default.createElement(
+														'strong',
+														null,
+														'BCS'
+													),
+													_react2.default.createElement('br', null),
+													event.location,
+													_react2.default.createElement('br', null),
+													_react2.default.createElement(
+														'abbr',
+														{ title: 'Phone' },
+														'P:'
+													),
+													'(+34) 666-13-13'
 												)
 											),
 											_react2.default.createElement(
 												'div',
 												null,
-												event.startTime,
-												' : ',
-												event.endTime
-											)
-										), eventKey: i, key: i },
-									_react2.default.createElement(
-										'div',
-										null,
-										_react2.default.createElement(
-											'div',
-											null,
-											_react2.default.createElement(
-												'span',
-												null,
 												_react2.default.createElement(
-													'strong',
+													'span',
 													null,
-													'Type: '
-												)
-											),
-											event.eventType
-										),
-										_react2.default.createElement(
-											'div',
-											null,
-											_react2.default.createElement(
-												'span',
-												null,
-												_react2.default.createElement(
-													'strong',
-													null,
-													'Duration: '
-												)
-											),
-											event.eventType2
-										),
-										_react2.default.createElement('div', null),
-										_react2.default.createElement(
-											'div',
-											null,
-											_react2.default.createElement(
-												'span',
-												null,
-												_react2.default.createElement(
-													'strong',
-													null,
-													'Details: '
-												)
-											),
-											event.details
-										),
-										_react2.default.createElement(
-											'div',
-											null,
-											_react2.default.createElement(
-												'strong',
-												null,
-												'Location: '
-											),
-											_react2.default.createElement(
-												'address',
-												null,
-												_react2.default.createElement(
-													'strong',
-													null,
-													'BCS'
+													_react2.default.createElement(
+														'strong',
+														null,
+														'Price: '
+													)
 												),
-												_react2.default.createElement('br', null),
-												event.location,
-												_react2.default.createElement('br', null),
+												event.price
+											),
+											_react2.default.createElement(
+												'div',
+												null,
 												_react2.default.createElement(
-													'abbr',
-													{ title: 'Phone' },
-													'P:'
+													'span',
+													null,
+													_react2.default.createElement(
+														'strong',
+														null,
+														'Organizer: '
+													)
 												),
-												'(+34) 666-13-13'
-											)
-										),
-										_react2.default.createElement(
-											'div',
-											null,
+												event.organizer
+											),
 											_react2.default.createElement(
-												'span',
+												'div',
 												null,
+												_react2.default.createElement('input', { type: 'number', placeholder: 'Enter Quantity', name: 'studentsNumber', onChange: _this3.handleChangeStudentsNumber.bind(_this3) })
+											),
+											_react2.default.createElement(
+												_reactMaterialize.Button,
+												{ type: 'button', className: 'grey', onClick: _this3.handleAddToCart.bind(_this3, event) },
+												'Add to cart'
+											),
+											_react2.default.createElement('p', null),
+											_react2.default.createElement(
+												'div',
+												{ className: 'social_share_container' },
 												_react2.default.createElement(
-													'strong',
+													TwitterShareButton,
+													{
+														url: shareUrl,
+														title: title,
+														className: 'social_share_buttons' },
+													_react2.default.createElement(TwitterIcon, {
+														size: 26,
+														round: true })
+												),
+												_react2.default.createElement(
+													FacebookShareButton,
+													{
+														url: shareUrl,
+														title: title,
+														className: 'social_share_buttons' },
+													_react2.default.createElement(FacebookIcon, {
+														size: 26,
+														round: true })
+												),
+												_react2.default.createElement(
+													LinkedinShareButton,
+													{
+														url: shareUrl,
+														title: title,
+														className: 'social_share_buttons' },
+													_react2.default.createElement(LinkedinIcon, {
+														size: 26,
+														round: true })
+												)
+											),
+											_react2.default.createElement(
+												_Panel2.default,
+												{ collapsible: true, expanded: _this3.state.open },
+												_react2.default.createElement(
+													'p',
 													null,
-													'Price: '
-												)
-											),
-											event.price
-										),
-										_react2.default.createElement(
-											'div',
-											null,
-											_react2.default.createElement(
-												'span',
-												null,
+													'The event has been added to cart.'
+												),
 												_react2.default.createElement(
-													'strong',
-													null,
-													'Organizer: '
-												)
-											),
-											event.organizer
-										),
-										_react2.default.createElement(
-											'div',
-											null,
-											_react2.default.createElement('img', { src: event.image })
-										),
-										_react2.default.createElement(
-											'div',
-											{ className: 'social_share_container' },
-											_react2.default.createElement(
-												TwitterShareButton,
-												{
-													url: shareUrl,
-													title: title,
-													className: 'social_share_buttons' },
-												_react2.default.createElement(TwitterIcon, {
-													size: 26,
-													round: true })
-											),
-											_react2.default.createElement(
-												FacebookShareButton,
-												{
-													url: shareUrl,
-													title: title,
-													className: 'social_share_buttons' },
-												_react2.default.createElement(FacebookIcon, {
-													size: 26,
-													round: true })
-											),
-											_react2.default.createElement(
-												LinkedinShareButton,
-												{
-													url: shareUrl,
-													title: title,
-													className: 'social_share_buttons' },
-												_react2.default.createElement(LinkedinIcon, {
-													size: 26,
-													round: true })
-											)
-										),
-										_react2.default.createElement(
-											_Label2.default,
-											null,
-											'Enter Quantity'
-										),
-										_react2.default.createElement('input', { type: 'number', name: 'studentsNumber', onChange: _this3.handleChangeStudentsNumber.bind(_this3) }),
-										_react2.default.createElement(
-											_reactMaterialize.Button,
-											{ type: 'button', className: 'grey', onClick: _this3.handleAddToCart.bind(_this3, event) },
-											'Add to cart'
-										),
-										_react2.default.createElement('p', null),
-										_react2.default.createElement(
-											_Panel2.default,
-											{ collapsible: true, expanded: _this3.state.open },
-											_react2.default.createElement(
-												'p',
-												null,
-												'The event has been added to cart.'
-											),
-											_react2.default.createElement(
-												_NavLink2.default,
-												{ to: '/checkout' },
+													_NavLink2.default,
+													{ to: '/checkout' },
+													_react2.default.createElement(
+														_reactMaterialize.Button,
+														{ className: 'grey', style: { marginRight: '1em' }, onClick: _this3.handleCheckOut.bind(_this3, event) },
+														'Checkout'
+													)
+												),
 												_react2.default.createElement(
-													_reactMaterialize.Button,
-													{ className: 'grey', style: { marginRight: '1em' }, onClick: _this3.handleCheckOut.bind(_this3, event) },
-													'Checkout'
-												)
-											),
-											_react2.default.createElement(
-												_NavLink2.default,
-												{ to: '/cart' },
-												_react2.default.createElement(
-													_reactMaterialize.Button,
-													{ className: 'grey' },
-													'View cart'
+													_NavLink2.default,
+													{ to: '/cart' },
+													_react2.default.createElement(
+														_reactMaterialize.Button,
+														{ className: 'grey' },
+														'View cart'
+													)
 												)
 											)
 										)
-									)
-								);
+									);
+								}
 							})
 						)
 					)
@@ -100988,7 +101143,7 @@
 				}
 
 				this.props.addEventAsync(data, function () {
-					console.log('event added!!!!');
+					console.log('event added!!!!', data);
 				});
 			}
 		}, {
@@ -101001,7 +101156,7 @@
 						'div',
 						{ className: 'pageTitle' },
 						_react2.default.createElement(
-							'h2',
+							'h3',
 							null,
 							'Admin area'
 						)
@@ -101423,7 +101578,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-			value: true
+		value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -101439,6 +101594,12 @@
 	var _reactBootstrap = __webpack_require__(400);
 
 	var _reactShare = __webpack_require__(846);
+
+	var _actions = __webpack_require__(278);
+
+	var _reactRedux = __webpack_require__(241);
+
+	var _redux = __webpack_require__(250);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -101463,105 +101624,122 @@
 	var LinkedinIcon = (0, _reactShare.generateShareIcon)('linkedin');
 
 	var Home = function (_React$Component) {
-			_inherits(Home, _React$Component);
+		_inherits(Home, _React$Component);
 
-			function Home(props) {
-					_classCallCheck(this, Home);
+		function Home(props) {
+			_classCallCheck(this, Home);
 
-					var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this));
+			var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 
-					_this.state = {
-							index: 0,
-							direction: null
-					};
-					return _this;
+			_this.state = {
+				index: 0,
+				direction: null
+			};
+			console.log("From Home");
+			return _this;
+		}
+
+		_createClass(Home, [{
+			key: 'handleSelect',
+			value: function handleSelect(selectedIndex, e) {
+
+				this.setState({
+					index: selectedIndex,
+					direction: e.direction
+				});
 			}
+		}, {
+			key: 'render',
+			value: function render() {
 
-			_createClass(Home, [{
-					key: 'handleSelect',
-					value: function handleSelect(selectedIndex, e) {
-
-							this.setState({
-									index: selectedIndex,
-									direction: e.direction
-							});
-					}
-			}, {
-					key: 'render',
-					value: function render() {
-							var shareUrl = 'http://www.barcelonacodeschool.com';
-							var title = 'Barcelona Code School';
-							return _react2.default.createElement(
-									'div',
-									{ className: 'content' },
-									_react2.default.createElement(
-											'div',
+				var shareUrl = 'http://www.barcelonacodeschool.com';
+				var title = 'Barcelona Code School';
+				return _react2.default.createElement(
+					'div',
+					{ className: 'content' },
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							_reactBootstrap.Carousel,
+							{ activeIndex: this.state.index, direction: this.state.direction, onSelect: this.handleSelect.bind(this) },
+							this.props.events.map(function (event) {
+								if (new Date(event.startDate).getTime() > new Date().getTime()) {
+									var df = new Date(event.startDate);
+									var dArr = df.toDateString().split(' ');
+									var dFormat = dArr[2] + ' ' + dArr[1] + ' ' + dArr[3];
+									return _react2.default.createElement(
+										_reactBootstrap.Carousel.Item,
+										null,
+										_react2.default.createElement('img', { width: 960, height: 480, alt: '960x480', src: event.image }),
+										_react2.default.createElement(
+											_reactBootstrap.Carousel.Caption,
 											null,
 											_react2.default.createElement(
-													_reactBootstrap.Carousel,
-													{ activeIndex: this.state.index, direction: this.state.direction, onSelect: this.handleSelect.bind(this) },
-													_react2.default.createElement(
-															_reactBootstrap.Carousel.Item,
-															null,
-															_react2.default.createElement('img', { width: 960, height: 480, alt: '960x480', src: '/img/Build-online-store-from-zero-with-woocommerce.jpg' }),
-															_react2.default.createElement(_reactBootstrap.Carousel.Caption, null)
-													),
-													_react2.default.createElement(
-															_reactBootstrap.Carousel.Item,
-															null,
-															_react2.default.createElement('img', { width: 960, height: 480, alt: '960x480', src: '/img/introduction_to_web_design.png' }),
-															_react2.default.createElement(_reactBootstrap.Carousel.Caption, null)
-													),
-													_react2.default.createElement(
-															_reactBootstrap.Carousel.Item,
-															null,
-															_react2.default.createElement('img', { width: 960, height: 480, alt: '960x480', src: '/img/create_a_wordpress_website_from_zero.jpg' }),
-															_react2.default.createElement(_reactBootstrap.Carousel.Caption, null)
-													)
-											)
-									),
-									_react2.default.createElement(
-											'div',
-											{ className: 'social_share_container' },
-											_react2.default.createElement(
-													TwitterShareButton,
-													{
-															url: shareUrl,
-															title: title,
-															className: 'social_share_buttons' },
-													_react2.default.createElement(TwitterIcon, {
-															size: 26,
-															round: true })
+												'h3',
+												null,
+												event.title
 											),
 											_react2.default.createElement(
-													FacebookShareButton,
-													{
-															url: shareUrl,
-															title: title,
-															className: 'social_share_buttons' },
-													_react2.default.createElement(FacebookIcon, {
-															size: 26,
-															round: true })
-											),
-											_react2.default.createElement(
-													LinkedinShareButton,
-													{
-															url: shareUrl,
-															title: title,
-															className: 'social_share_buttons' },
-													_react2.default.createElement(LinkedinIcon, {
-															size: 26,
-															round: true })
+												'h4',
+												null,
+												event.subtitle,
+												' on ',
+												dFormat
 											)
-									)
-							);
-					}
-			}]);
+										)
+									);
+								}
+							})
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'social_share_container' },
+						_react2.default.createElement(
+							TwitterShareButton,
+							{
+								url: shareUrl,
+								title: title,
+								className: 'social_share_buttons' },
+							_react2.default.createElement(TwitterIcon, {
+								size: 26,
+								round: true })
+						),
+						_react2.default.createElement(
+							FacebookShareButton,
+							{
+								url: shareUrl,
+								title: title,
+								className: 'social_share_buttons' },
+							_react2.default.createElement(FacebookIcon, {
+								size: 26,
+								round: true })
+						),
+						_react2.default.createElement(
+							LinkedinShareButton,
+							{
+								url: shareUrl,
+								title: title,
+								className: 'social_share_buttons' },
+							_react2.default.createElement(LinkedinIcon, {
+								size: 26,
+								round: true })
+						)
+					)
+				);
+				//})}
+			}
+		}]);
 
-			return Home;
+		return Home;
 	}(_react2.default.Component);
 
-	exports.default = Home;
+	var mapStateToProps = function mapStateToProps(state) {
+		return { events: state.EventData };
+	}; // getting info from the store
+	//const mapDispatchToProps = (dispatch) => bindActionCreators({addEventToCartAsync , addTotalToCheckOutAsync}, dispatch) // sending info to the store
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home); // we connect both things from above
 
 /***/ },
 /* 963 */
@@ -101732,7 +101910,7 @@
 											'div',
 											{ className: 'pageTitle' },
 											_react2.default.createElement(
-													'h2',
+													'h3',
 													null,
 													'Cart'
 											)
@@ -101975,168 +102153,176 @@
 							console.log("--this.state.customer--", this.state.customer);
 							return _react2.default.createElement(
 									'div',
-									{ id: 'checkoutBilling', className: 'content' },
+									null,
 									_react2.default.createElement(
-											'h2',
-											null,
-											'Checkout page'
+											'div',
+											{ className: 'pageTitle' },
+											_react2.default.createElement(
+													'h3',
+													null,
+													'Checkout'
+											)
 									),
 									_react2.default.createElement(
-											'h3',
-											null,
-											'Please fill out your billing details'
-									),
-									_react2.default.createElement(
-											'form',
-											{ onSubmit: this.handleSubmit.bind(this) },
+											'div',
+											{ id: 'checkoutBilling', className: 'content' },
 											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
+													'h4',
 													null,
-													'Enter your first name'
-											),
-											_react2.default.createElement(_reactBootstrap.FormControl, {
-													id: 'formControlsText',
-													type: 'text',
-													name: 'firstName',
-													placeholder: 'Enter your first name',
-													onChange: this.handleChange.bind(this) }),
-											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
-													null,
-													'Last name'
-											),
-											_react2.default.createElement(_reactBootstrap.FormControl, {
-													id: 'formControlsText',
-													type: 'text',
-													name: 'lastName',
-													placeholder: 'Enter your last name',
-													onChange: this.handleChange.bind(this) }),
-											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
-													null,
-													'Your ID'
-											),
-											_react2.default.createElement(_reactBootstrap.FormControl, {
-													id: 'formControlsText',
-													type: 'text',
-													name: 'idNumber',
-													placeholder: 'Enter your ID document number',
-													onChange: this.handleChange.bind(this) }),
-											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
-													null,
-													'Company name'
-											),
-											_react2.default.createElement(_reactBootstrap.FormControl, {
-													id: 'formControlsEmail',
-													type: 'text',
-													name: 'companyName',
-													placeholder: 'Enter your company name',
-													onChange: this.handleChange.bind(this) }),
-											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
-													null,
-													'Email address'
-											),
-											_react2.default.createElement(_reactBootstrap.FormControl, {
-													id: 'formControlsEmail',
-													type: 'email',
-													name: 'email',
-													placeholder: 'Enter email',
-													onChange: this.handleChange.bind(this) }),
-											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
-													null,
-													'Your phone number'
-											),
-											_react2.default.createElement(_reactBootstrap.FormControl, {
-													id: 'formControlsText',
-													type: 'text',
-													name: 'phone',
-													placeholder: 'Enter your phone number',
-													onChange: this.handleChange.bind(this) }),
-											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
-													null,
-													'Country'
+													'Please fill out your billing details'
 											),
 											_react2.default.createElement(
-													_reactBootstrap.FormGroup,
-													{ controlId: 'formControlsSelect' },
+													'form',
+													{ onSubmit: this.handleSubmit.bind(this) },
 													_react2.default.createElement(
-															_reactBootstrap.FormControl,
-															{ componentClass: 'select', name: 'country', placeholder: 'select',
-																	onChange: this.handleChange.bind(this) },
+															_reactBootstrap.ControlLabel,
+															null,
+															'Enter your first name'
+													),
+													_react2.default.createElement(_reactBootstrap.FormControl, {
+															id: 'formControlsText',
+															type: 'text',
+															name: 'firstName',
+															placeholder: 'Enter your first name',
+															onChange: this.handleChange.bind(this) }),
+													_react2.default.createElement(
+															_reactBootstrap.ControlLabel,
+															null,
+															'Last name'
+													),
+													_react2.default.createElement(_reactBootstrap.FormControl, {
+															id: 'formControlsText',
+															type: 'text',
+															name: 'lastName',
+															placeholder: 'Enter your last name',
+															onChange: this.handleChange.bind(this) }),
+													_react2.default.createElement(
+															_reactBootstrap.ControlLabel,
+															null,
+															'Your ID'
+													),
+													_react2.default.createElement(_reactBootstrap.FormControl, {
+															id: 'formControlsText',
+															type: 'text',
+															name: 'idNumber',
+															placeholder: 'Enter your ID document number',
+															onChange: this.handleChange.bind(this) }),
+													_react2.default.createElement(
+															_reactBootstrap.ControlLabel,
+															null,
+															'Company name'
+													),
+													_react2.default.createElement(_reactBootstrap.FormControl, {
+															id: 'formControlsEmail',
+															type: 'text',
+															name: 'companyName',
+															placeholder: 'Enter your company name',
+															onChange: this.handleChange.bind(this) }),
+													_react2.default.createElement(
+															_reactBootstrap.ControlLabel,
+															null,
+															'Email address'
+													),
+													_react2.default.createElement(_reactBootstrap.FormControl, {
+															id: 'formControlsEmail',
+															type: 'email',
+															name: 'email',
+															placeholder: 'Enter email',
+															onChange: this.handleChange.bind(this) }),
+													_react2.default.createElement(
+															_reactBootstrap.ControlLabel,
+															null,
+															'Your phone number'
+													),
+													_react2.default.createElement(_reactBootstrap.FormControl, {
+															id: 'formControlsText',
+															type: 'text',
+															name: 'phone',
+															placeholder: 'Enter your phone number',
+															onChange: this.handleChange.bind(this) }),
+													_react2.default.createElement(
+															_reactBootstrap.ControlLabel,
+															null,
+															'Country'
+													),
+													_react2.default.createElement(
+															_reactBootstrap.FormGroup,
+															{ controlId: 'formControlsSelect' },
 															_react2.default.createElement(
-																	'option',
-																	{ value: 'select' },
-																	'Select your country'
-															),
-															_react2.default.createElement(
-																	'option',
-																	{ value: 'spain' },
-																	'Spain'
-															),
-															_react2.default.createElement(
-																	'option',
-																	{ value: 'other' },
-																	'Rest of the world'
+																	_reactBootstrap.FormControl,
+																	{ componentClass: 'select', name: 'country', placeholder: 'select',
+																			onChange: this.handleChange.bind(this) },
+																	_react2.default.createElement(
+																			'option',
+																			{ value: 'select' },
+																			'Select your country'
+																	),
+																	_react2.default.createElement(
+																			'option',
+																			{ value: 'spain' },
+																			'Spain'
+																	),
+																	_react2.default.createElement(
+																			'option',
+																			{ value: 'other' },
+																			'Rest of the world'
+																	)
 															)
+													),
+													_react2.default.createElement(
+															_reactBootstrap.ControlLabel,
+															null,
+															'Address'
+													),
+													_react2.default.createElement(_reactBootstrap.FormControl, {
+															id: 'formControlsText',
+															type: 'text',
+															name: 'address',
+															placeholder: 'Enter your address',
+															onChange: this.handleChange.bind(this) }),
+													_react2.default.createElement(
+															_reactBootstrap.ControlLabel,
+															null,
+															'Post code'
+													),
+													_react2.default.createElement(_reactBootstrap.FormControl, {
+															id: 'formControlsText',
+															type: 'text',
+															name: 'postcode',
+															placeholder: 'Enter your post code',
+															onChange: this.handleChange.bind(this) }),
+													_react2.default.createElement(
+															_reactBootstrap.ControlLabel,
+															null,
+															'City'
+													),
+													_react2.default.createElement(_reactBootstrap.FormControl, {
+															id: 'formControlsText',
+															type: 'text',
+															name: 'city',
+															placeholder: 'Enter your city',
+															onChange: this.handleChange.bind(this) }),
+													_react2.default.createElement(
+															_reactBootstrap.ControlLabel,
+															null,
+															'Additional information'
+													),
+													_react2.default.createElement(_reactBootstrap.FormControl, {
+															id: 'formControlsText',
+															type: 'textarea',
+															name: 'notes',
+															placeholder: 'If you have any order notes please enter them here',
+															onChange: this.handleChange.bind(this) }),
+													_react2.default.createElement(
+															'p',
+															{ id: 'agreeTC' },
+															'By clicking the Next button you agree to our terms and conditions'
+													),
+													_react2.default.createElement(
+															_reactMaterialize.Button,
+															{ className: 'grey', type: 'submit' },
+															'Next'
 													)
-											),
-											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
-													null,
-													'Address'
-											),
-											_react2.default.createElement(_reactBootstrap.FormControl, {
-													id: 'formControlsText',
-													type: 'text',
-													name: 'address',
-													placeholder: 'Enter your address',
-													onChange: this.handleChange.bind(this) }),
-											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
-													null,
-													'Post code'
-											),
-											_react2.default.createElement(_reactBootstrap.FormControl, {
-													id: 'formControlsText',
-													type: 'text',
-													name: 'postcode',
-													placeholder: 'Enter your post code',
-													onChange: this.handleChange.bind(this) }),
-											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
-													null,
-													'City'
-											),
-											_react2.default.createElement(_reactBootstrap.FormControl, {
-													id: 'formControlsText',
-													type: 'text',
-													name: 'city',
-													placeholder: 'Enter your city',
-													onChange: this.handleChange.bind(this) }),
-											_react2.default.createElement(
-													_reactBootstrap.ControlLabel,
-													null,
-													'Additional information'
-											),
-											_react2.default.createElement(_reactBootstrap.FormControl, {
-													id: 'formControlsText',
-													type: 'textarea',
-													name: 'notes',
-													placeholder: 'If you have any order notes please enter them here',
-													onChange: this.handleChange.bind(this) }),
-											_react2.default.createElement(
-													'p',
-													{ id: 'agreeTC' },
-													'By clicking the Next button you agree to our terms and conditions'
-											),
-											_react2.default.createElement(
-													_reactMaterialize.Button,
-													{ className: 'grey', type: 'submit' },
-													'Next'
 											)
 									)
 							);

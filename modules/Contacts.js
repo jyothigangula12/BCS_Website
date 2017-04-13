@@ -42,14 +42,14 @@ class Contacts extends React.Component {
 		return (
 			<div>
 			<div className='pageTitle'>
-			<h2>Contact us</h2>
+			<h3>Contact us</h3>
 			</div>
 			<div className="content">
 			<div className="row">
 			<form onSubmit={this.handleSubmit.bind(this)} className="col s12">
 
 				<div className="row">
-				<div className="input-field col s12">
+				<div className="input-field col s12" >
 						<FormGroup controlId="formControlsName">
 						Your name				
 						<FormControl type="text" name="name" placeholder="Your name" />

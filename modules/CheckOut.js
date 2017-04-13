@@ -44,9 +44,12 @@ class GeneralInformation extends React.Component{
 render() {
 			console.log("--this.state.customer--", this.state.customer)
 return ( 
+	<div>
+		<div className='pageTitle'>
+    	<h3>Checkout</h3>
+    	</div>
 		<div id="checkoutBilling" className="content">
-		<h2>Checkout page</h2>
-		<h3>Please fill out your billing details</h3>
+		<h4>Please fill out your billing details</h4>
 			<form onSubmit = {this.handleSubmit.bind(this)}>
 				<ControlLabel>Enter your first name</ControlLabel>
 				<FormControl
@@ -142,6 +145,7 @@ return (
 				</p>
 				<Button className="grey" type="submit">Next</Button>	
 				</form>
+		</div>
 		</div>
 	)
 }

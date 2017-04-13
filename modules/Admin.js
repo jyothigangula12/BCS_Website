@@ -56,14 +56,14 @@ class Admin extends React.Component {
 			const name = input.getAttribute('name') 
 			if (name) data[name] = input.value
 		}
-		this.props.addEventAsync(data, ()=>{console.log('event added!!!!')})
+		this.props.addEventAsync(data, ()=>{console.log('event added!!!!' , data)})
 	}
 
 	render() {
 		return (
 			<div>
 			<div className='pageTitle'>
-	    	<h2>Admin area</h2>
+	    	<h3>Admin area</h3>
 	    	</div>			
 			<div className = 'row content'>
 			<div className = "col-md-12">

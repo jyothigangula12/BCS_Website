@@ -92,23 +92,23 @@ handleCheckOut(event){
 	render() {
 		 // These two lines are to sort date
 			this.props.events.sort(function(a,b) { 
-			    return new Date(a.startDate).getTime() - new Date(b.startDate).getTime() 
+				return new Date(a.startDate).getTime() - new Date(b.startDate).getTime() 
 			});
-
     const shareUrl = 'http://www.google.com';
     const title = 'Built with react';
 		return (
 			<div>
 		<div className='pageTitle'>
-    	<h2>Calendar</h2>
+    	<h3>Calendar</h3>
     	</div>
 			<div className="content">
 				<Accordion>
-					{this.props.events.map( (event, i) => {
+					{this.props.events.map( (event, i) => { if (new Date(event.startDate).getTime() > new Date().getTime()){
 						
                             return(
 								<Panel header={<div>{event.startDate} – {event.endDate}<h2>{event.title}: <small>{event.subtitle}</small></h2><div>{event.startTime} : {event.endTime}</div></div>} eventKey={i} key={i}>
 								<div>
+								<div><img className="eventImage" src={event.image}/></div>
 								<div><span><strong>Type: </strong></span>{event.eventType}</div>
 								<div><span><strong>Duration: </strong></span>{event.eventType2}</div>
 								<div></div>
@@ -116,7 +116,15 @@ handleCheckOut(event){
 								<div><strong>Location: </strong><address><strong>BCS</strong><br/>{event.location}<br/><abbr title="Phone">P:</abbr>(+34) 666-13-13</address></div>
 								<div><span><strong>Price: </strong></span>{event.price}</div>
 								<div><span><strong>Organizer: </strong></span>{event.organizer}</div>
-								<div><img src={event.image}/></div>
+									<div>
+								
+								<input type="number" placeholder = "Enter Quantity" name="studentsNumber" onChange={this.handleChangeStudentsNumber.bind(this)}></input>
+								{/*<Button type="button" onClick={this.handleAddToCart.bind(this, event)}>Add to cart</Button>*/}
+									</div>
+									<Button type="button" className="grey" onClick={ this.handleAddToCart.bind(this, event)}>
+									Add to cart
+									</Button>
+									<p/>
 									<div className="social_share_container">
 										<TwitterShareButton
 										url={shareUrl}
@@ -143,13 +151,6 @@ handleCheckOut(event){
 										round />
 										</LinkedinShareButton>
 									</div>
-								<Label>Enter Quantity</Label>
-								<input type="number" name="studentsNumber" onChange={this.handleChangeStudentsNumber.bind(this)}></input>
-								{/*<Button type="button" onClick={this.handleAddToCart.bind(this, event)}>Add to cart</Button>*/}
-									<Button type="button" className="grey" onClick={ this.handleAddToCart.bind(this, event)}>
-									Add to cart
-									</Button>
-									<p/>
 									<Panel collapsible expanded={this.state.open}>
 									<p>The event has been added to cart.</p>
 									<NavLink to="/checkout"><Button className="grey" style={{marginRight: '1em'}} onClick = {this.handleCheckOut.bind(this,event)}>Checkout</Button></NavLink>
@@ -158,7 +159,8 @@ handleCheckOut(event){
 									</div>
 								</Panel>
 							)
-					})}
+					}}
+					)}
 				</Accordion>
               </div>
             </div>
