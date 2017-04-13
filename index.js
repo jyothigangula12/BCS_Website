@@ -12,7 +12,7 @@ import Repos from './modules/Repos'
 import Repo from './modules/Repo'
 import Home from './modules/Home'
 import Cart from './modules/Cart'
-import Checkout from './modules/Checkout'
+// import Checkout from './modules/Checkout'
 render((
   <Provider store = {store}>
     <Router history={browserHistory}>
@@ -23,7 +23,7 @@ render((
         </Route>
         <Route path="/calendar" component={Calendar}/>
         <Route path="/cart" component={Cart}/>
-        <Route path="/checkout" component={Checkout}/>
+        {/*<Route path="/checkout" component={Checkout}/>*/}
     	  <Route path="/contacts" component={Contacts}/>
         <Route path="/admin" component={Admin}/>
         <Route path="/about" component={About}/>

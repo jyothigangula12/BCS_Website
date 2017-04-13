@@ -48,7 +48,6 @@ class AppNavbar extends React.Component {
               <li><NavLink to="/calendar">Calendar</NavLink></li>          
               <li><NavLink to="/contacts">Contact us</NavLink></li>
               <li><NavLink to="/about">About</NavLink></li>
-              <li><NavLink to="/checkout">Checkout</NavLink></li>
               <li><NavLink to="/admin">Admin page</NavLink></li>
             </ul>
             </div>
@@ -66,7 +65,6 @@ class AppNavbar extends React.Component {
                 <MenuItem eventKey="calendar">Calendar</MenuItem>
                 <MenuItem eventKey="contacts">Contact us</MenuItem>
                 <MenuItem eventKey="about">About</MenuItem>
-                <MenuItem eventKey="checkout">Checkout</MenuItem>
                 <MenuItem divider />
                 <MenuItem eventKey="admin">Admin Page</MenuItem>
               </NavDropdown>
